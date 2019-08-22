@@ -1,0 +1,94 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="ElasticSearch.Loader.Model" #>
+package <#=this.JavaRoot#>;
+
+/*
+ *------------------------------------------------------------------------------
+ *     此代码从模板生成。
+ *
+ *     手动更改此文件可能导致应用程序出现意外的行为。
+ *     如果重新生成代码，将覆盖对此文件的手动更改。
+ *------------------------------------------------------------------------------
+ */
+
+<#
+    if(this.ClassNode.Imports != null && this.ClassNode.Imports.Count > 0)
+    {
+        foreach(var import in this.ClassNode.Imports)
+        {
+#>
+import <#=import#>;
+<#
+        }
+#><#=Environment.NewLine#><#
+    }
+#>
+<#
+        if(!string.IsNullOrEmpty(this.ClassNode.Summary))
+        {
+#>
+/**
+ * <#=this.ClassNode.Summary#>
+ */
+<#
+        }
+#>
+public class <#=this.ClassNode.Name#> {
+<#
+        if (this.ClassNode.PropertyNodeList != null && this.ClassNode.PropertyNodeList.Count > 0)
+        {
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
+            {
+                if(!string.IsNullOrEmpty(propertyNode.Summary))
+                {
+#>
+
+    /**
+     * <#=propertyNode.Summary#>
+     */
+<#
+                }
+#>
+    private <#=propertyNode.PropertyType.ToJavaType(this.RootNamespace)#> <#=propertyNode.Name.ToLowerCamelCase()#>;
+<#
+            }
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
+            {
+                if(!string.IsNullOrEmpty(propertyNode.Summary))
+                {
+#>
+
+    /**
+     * Get <#=propertyNode.Summary#>
+     */
+<#
+                }
+#>
+    public <#=propertyNode.PropertyType.ToJavaType(this.RootNamespace)#> get<#=propertyNode.Name#>() {
+        return <#=propertyNode.Name.ToLowerCamelCase()#>;
+    }
+<#
+
+                if(!string.IsNullOrEmpty(propertyNode.Summary))
+                {
+#>
+
+    /**
+     * Set <#=propertyNode.Summary#>
+     */
+<#
+                }
+#>
+    public void set<#=propertyNode.Name#>(<#=propertyNode.PropertyType.ToJavaType(this.RootNamespace)#> <#=propertyNode.Name.ToLowerCamelCase()#>) {
+        this.<#=propertyNode.Name.ToLowerCamelCase()#> = <#=propertyNode.Name.ToLowerCamelCase()#>;
+    }
+<#
+
+            }
+        }
+#>
+}

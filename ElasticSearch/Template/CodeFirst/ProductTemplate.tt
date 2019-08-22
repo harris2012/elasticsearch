@@ -1,0 +1,64 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace <#=this.RootNamespace#>
+{
+    /// <summary>
+    /// 产品
+    /// </summary>
+    public class Product
+    {
+        /// <summary>
+        /// 产品编号
+        /// </summary>
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 产品名称
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// 出发城市
+        /// </summary>
+        public List<int> StartCityId { get; set; }
+
+        /// <summary>
+        /// 关联景区
+        /// </summary>
+        public List<long> DistrictId { get; set; }
+
+        /// <summary>
+        /// 销售模式
+        /// </summary>
+        public List<string> SaleMode { get; set; }
+
+        /// <summary>
+        /// `string`到`long`的映射
+        /// </summary>
+        public Dictionary<string, int> StringIntMap { get; set; }
+
+        /// <summary>
+        /// `long`到`string`的映射
+        /// </summary>
+        public Dictionary<long, string> LongStringMap { get; set; }
+
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        public DateTime StartTime { get; set; }
+
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        public DateTime EndTime { get; set; }
+    }
+}

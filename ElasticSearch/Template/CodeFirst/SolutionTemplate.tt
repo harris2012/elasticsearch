@@ -1,0 +1,30 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<#=this.ProjectName#>", "<#=this.ProjectName#>\\<#=this.ProjectName#>.csproj", "{<#=this.ProjectGuid#>}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{<#=this.ProjectGuid#>}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{<#=this.ProjectGuid#>}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{<#=this.ProjectGuid#>}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{<#=this.ProjectGuid#>}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {<#=this.SolutionGuid#>}
+	EndGlobalSection
+EndGlobal

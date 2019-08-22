@@ -1,0 +1,11 @@
+pushd CodeFirst
+dotnet restore
+dotnet build
+popd
+
+rmdir /S /Q Java
+
+elasticsearch update
+
+pause
+
