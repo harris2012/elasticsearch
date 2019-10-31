@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Infrastructure
 {
     /// <summary>
-    /// 文本
+    /// 长整型
     /// </summary>
-    public class TextFieldAttribute : FieldAttribute
+    public class LongFieldAttribute : FieldAttribute
     {
-        public override FieldType FieldType => FieldType.Text;
+        public override FieldType FieldType => FieldType.Long;
     }
 }
