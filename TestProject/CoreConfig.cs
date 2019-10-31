@@ -15,11 +15,11 @@ namespace TestProject
         /// <summary>
         /// 如果属性没有指定FieldAttribute，根据属性的类型推断默认的FieldAttribute
         /// </summary>
-        public static bool AssumeFiledAttribute
+        public static bool PropertyTypeAsFiledAttribute
         {
             get
             {
-                return "true".Equals(ConfigurationManager.AppSettings["AssumeFiledAttribute"], StringComparison.OrdinalIgnoreCase);
+                return "true".Equals(ConfigurationManager.AppSettings["PropertyTypeAsFiledAttribute"], StringComparison.OrdinalIgnoreCase);
             }
         }
     }

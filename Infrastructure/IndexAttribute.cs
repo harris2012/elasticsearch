@@ -3,29 +3,43 @@
 namespace Infrastructure
 {
     /// <summary>
-    /// 索引
+    /// 类型
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class TypeAttribute : Attribute
+    public class IndexAttribute : Attribute
     {
+        #region 索引
+
         /// <summary>
-        /// 索引
+        /// 索引名。如果不显示设置，将使用类名作为索引名
         /// </summary>
-        /// <param name="name">类型名称</param>
-        public TypeAttribute(string name)
-        {
-            this.Name = name;
-        }
+        public string IndexName { get; set; }
+
+        /// <summary>
+        /// 分片数 number_of_shards，默认值是5
+        /// </summary>
+        public int NumberOfShards { get; set; }
+
+        /// <summary>
+        /// 副本数 number_of_replicas，默认值是1
+        /// </summary>
+        public int NumberOfReplicas { get; set; }
+
+        #endregion
+
+        #region 类型
 
         /// <summary>
         /// 类型名称
         /// </summary>
-        public string Name { get; private set; }
+        public string TypeName { get; set; }
 
         /// <summary>
         /// 是否
         /// </summary>
         public Dynamic Dynamic { get; set; } = Dynamic.True;
+
+        #endregion
     }
 
     /// <summary>

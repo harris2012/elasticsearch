@@ -10,16 +10,6 @@ namespace TestProject
     {
         /// <summary>
         /// 小写的名称，由Name计算而来
-        /// 示例：Student -> STUDENT
-        /// 示例：StudentScore -> STUDENT_SCORE
-        /// </summary>
-        public static string ToUpperCaseUnderLine(this string name)
-        {
-            return ToLowerCaseUnderLine(name).ToUpper();
-        }
-
-        /// <summary>
-        /// 小写的名称，由Name计算而来
         /// 示例：Student -> student
         /// 示例：StudentScore -> student_score
         /// </summary>
@@ -45,6 +35,35 @@ namespace TestProject
             }
             return builder.ToString();
         }
+
+        /// <summary>
+        /// 小写的名称，由Name计算而来
+        /// 示例：Student -> student
+        /// 示例：StudentScore -> student-score
+        /// </summary>
+        public static string ToLowerCaseBreakLine(this string name)
+        {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < name.Length; i++)
+            {
+                var ch = name[i];
+
+                if (ch >= 'A' && ch <= 'Z')
+                {
+                    if (i > 0)
+                    {
+                        builder.Append("-");
+                    }
+                    builder.Append((char)(ch + 32));
+                }
+                else
+                {
+                    builder.Append(name[i]);
+                }
+            }
+            return builder.ToString();
+        }
+
 
         /// <summary>
         /// 由Name计算而来

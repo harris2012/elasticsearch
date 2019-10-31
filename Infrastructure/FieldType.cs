@@ -99,7 +99,7 @@ namespace Infrastructure
         /// <summary>
         /// 【数组类型】array
         /// </summary>
-        array,
+        Array,
 
         /// <summary>
         /// 【对象类型】object
