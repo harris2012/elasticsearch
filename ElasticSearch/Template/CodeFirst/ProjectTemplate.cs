@@ -18,7 +18,7 @@ namespace ElasticSearch.Template.CodeFirst
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\ProjectTemplate.tt"
+    #line 1 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\ProjectTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class ProjectTemplate : ProjectTemplateBase
     {
@@ -31,22 +31,21 @@ namespace ElasticSearch.Template.CodeFirst
             this.Write("<Project Sdk=\"Microsoft.NET.Sdk\">\r\n\r\n  <PropertyGroup>\r\n    <TargetFramework>net4" +
                     "52</TargetFramework>\r\n    <AssemblyName>");
             
-            #line 10 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\ProjectTemplate.tt"
+            #line 10 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\ProjectTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.AssemblyName));
             
             #line default
             #line hidden
             this.Write("</AssemblyName>\r\n    <RootNamespace>");
             
-            #line 11 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\ProjectTemplate.tt"
+            #line 11 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\ProjectTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.RootNamespace));
             
             #line default
             #line hidden
-            this.Write("</RootNamespace>\r\n  </PropertyGroup>\r\n\r\n  <PropertyGroup>\r\n    <DocumentationFile" +
-                    ">bin\\Release\\");
+            this.Write("</RootNamespace>\r\n    <DocumentationFile>bin\\$(Configuration)\\");
             
-            #line 15 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\ProjectTemplate.tt"
+            #line 12 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\ProjectTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.AssemblyName));
             
             #line default

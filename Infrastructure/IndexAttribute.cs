@@ -18,12 +18,17 @@ namespace Infrastructure
         /// <summary>
         /// 分片数 number_of_shards，默认值是5
         /// </summary>
-        public int NumberOfShards { get; set; }
+        public int NumberOfShards { get; set; } = -1;
 
         /// <summary>
         /// 副本数 number_of_replicas，默认值是1
         /// </summary>
-        public int NumberOfReplicas { get; set; }
+        public int NumberOfReplicas { get; set; } = -1;
+
+        /// <summary>
+        /// 最大字段数
+        /// </summary>
+        public int MappingTotalFieldsLimit { get; set; } = -1;
 
         #endregion
 
@@ -35,9 +40,16 @@ namespace Infrastructure
         public string TypeName { get; set; }
 
         /// <summary>
-        /// 是否
+        /// 是否支持动态字段
         /// </summary>
         public Dynamic Dynamic { get; set; } = Dynamic.True;
+
+        /// <summary>
+        /// "_all": { "enabled": true }
+        /// es内部默认值是 false
+        /// </summary>
+        [Obsolete("暂不支持设置")]
+        public ALLEnabled AllEnabled { get; set; } = ALLEnabled.None;
 
         #endregion
     }
@@ -61,5 +73,27 @@ namespace Infrastructure
         /// 严格模式，文档不能写入，报错
         /// </summary>
         Strict
+    }
+
+    /// <summary>
+    /// "_all": { "enabled": true }
+    /// es内部默认值是 false
+    /// </summary>
+    public enum ALLEnabled
+    {
+        /// <summary>
+        /// 未设置
+        /// </summary>
+        None,
+
+        /// <summary>
+        /// 是
+        /// </summary>
+        True,
+
+        /// <summary>
+        /// 否(默认值)
+        /// </summary>
+        False
     }
 }

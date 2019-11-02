@@ -9,10 +9,7 @@
     <TargetFramework>net452</TargetFramework>
     <AssemblyName><#=this.AssemblyName#></AssemblyName>
     <RootNamespace><#=this.RootNamespace#></RootNamespace>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <DocumentationFile>bin\Release\\<#=this.AssemblyName#>.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\\<#=this.AssemblyName#>.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>

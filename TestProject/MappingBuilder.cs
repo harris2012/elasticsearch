@@ -11,7 +11,10 @@ namespace TestProject
 
         private Stack<string> indents = new Stack<string>();
 
-        private string indent = "    ";
+        private string indent = "  ";
+
+        //private string BeforeColon = " ";
+        private string BeforeColon = string.Empty;
 
         private string GetIndent()
         {
@@ -37,6 +40,9 @@ namespace TestProject
             return this;
         }
 
+        /// <summary>
+        /// 直接调用底层 Append
+        /// </summary>
         public MappingBuilder Append(string text)
         {
             stringBuilder.Append(text);
@@ -44,9 +50,23 @@ namespace TestProject
             return this;
         }
 
+        /// <summary>
+        /// 直接调用底层 AppendLine
+        /// </summary>
         public MappingBuilder AppendLine(string text)
         {
             stringBuilder.AppendLine(text);
+
+            return this;
+        }
+
+        /// <summary>
+        /// 添加缩进
+        /// </summary>
+        /// <returns></returns>
+        public MappingBuilder AppendIndent()
+        {
+            stringBuilder.Append(GetIndent());
 
             return this;
         }
@@ -57,13 +77,13 @@ namespace TestProject
             {
                 case "System.Int32":
                 case "System.Int64":
-                    stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\": ").Append(value);
+                    stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).Append(": ").Append(value);
                     break;
                 case "System.Boolean":
-                    stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\": ").Append((bool)value ? "true" : "false");
+                    stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).Append(": ").Append((bool)value ? "true" : "false");
                     break;
                 case "System.String":
-                    stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\": \"").Append(value).Append("\"");
+                    stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).Append(": \"").Append(value).Append("\"");
                     break;
                 default:
                     break;
@@ -74,7 +94,7 @@ namespace TestProject
 
         public MappingBuilder KeyValue(string key, Action<MappingBuilder> value)
         {
-            stringBuilder.Append(GetIndent()).Append("\"").Append(key).AppendLine("\": {");
+            stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).AppendLine(": {");
             PushIndent();
 
             value(this);
@@ -87,13 +107,33 @@ namespace TestProject
 
         public MappingBuilder KeyValue(string key, Dictionary<string, object> items)
         {
-            stringBuilder.Append(GetIndent()).Append("\"").Append(key).AppendLine("\": {");
+            stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).AppendLine(": {");
             PushIndent();
 
             KeyValue(items);
 
             PopIndent();
             stringBuilder.AppendLine().Append(GetIndent()).Append("}");
+
+            return this;
+        }
+
+        public MappingBuilder KeyValue(string key, List<string> items)
+        {
+            stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).AppendLine(": [");
+            PushIndent();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                stringBuilder.Append(GetIndent()).Append("\"").Append(items[i]).Append("\"");
+                if (i < items.Count - 1)
+                {
+                    stringBuilder.AppendLine(",");
+                }
+            }
+
+            PopIndent();
+            stringBuilder.AppendLine().Append(GetIndent()).Append("]");
 
             return this;
         }
@@ -115,7 +155,7 @@ namespace TestProject
 
         public MappingBuilder KeyValue(string key, Type type, Action<MappingBuilder, Type> value)
         {
-            stringBuilder.Append(GetIndent()).Append("\"").Append(key).AppendLine("\": {");
+            stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).AppendLine(": {");
             PushIndent();
 
             value(this, type);
@@ -128,7 +168,7 @@ namespace TestProject
 
         public MappingBuilder KeyValue(string key, FieldAttribute fieldAttribute, Action<MappingBuilder, FieldAttribute> value)
         {
-            stringBuilder.Append(GetIndent()).Append("\"").Append(key).AppendLine("\": {");
+            stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).AppendLine(": {");
             PushIndent();
 
             value(this, fieldAttribute);

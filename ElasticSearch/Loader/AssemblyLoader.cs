@@ -206,10 +206,6 @@ namespace ElasticSearch.Loader
                     .Where(v => v.MemberType == MemberTypes.Method)
                     .Where(v => v.DeclaringType == item)
                     .Where(v => !v.Name.StartsWith("StartIOCPTaskOf"))
-                    .Where(v => !v.Name.StartsWith("CreateAsyncTaskOf"))
-                    .Where(v => !v.Name.Equals("GetSchema", StringComparison.OrdinalIgnoreCase))
-                    .Where(v => !v.Name.Equals("GET", StringComparison.OrdinalIgnoreCase))
-                    .Where(v => !v.Name.Equals("PUT", StringComparison.OrdinalIgnoreCase))
                     .Select(v => (MethodInfo)v)
                     .Where(v => v.IsPublic && !v.IsSpecialName)
                     .ToArray();

@@ -11,6 +11,11 @@ namespace Infrastructure
     /// </summary>
     public enum FieldType
     {
+        ///// <summary>
+        ///// 类 或者 List
+        ///// </summary>
+        ////Complex,
+
         /// <summary>
         /// 【文本型】text。建议直接使用`TextField`
         /// </summary>

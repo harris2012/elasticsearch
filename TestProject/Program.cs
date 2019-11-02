@@ -13,8 +13,7 @@ namespace TestProject
             {
                 Core core = new Core();
 
-                File.WriteAllText("G:\\1.txt", core.BuildMappings(typeof(Book)), Encoding.UTF8);
-
+                File.WriteAllText("G:\\tmp008\\1.json", core.BuildMappings(typeof(Book)), Encoding.UTF8);
             }
         }
     }
