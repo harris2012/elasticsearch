@@ -121,11 +121,14 @@
   <data name="CSharpGitIgnore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\CSharpGitIgnore.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
+  <data name="Infrastructure_dll" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Infrastructure.dll;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Infrastructure_xml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\Infrastructure.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="JavaGitIgnore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\JavaGitIgnore.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
-  </data>
-  <data name="Setup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\Setup.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
   </data>
   <data name="Update" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\Update.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>

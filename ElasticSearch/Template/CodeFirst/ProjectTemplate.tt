@@ -12,4 +12,10 @@
     <DocumentationFile>bin\$(Configuration)\\<#=this.AssemblyName#>.xml</DocumentationFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Infrastructure">
+      <HintPath>..\Library\Infrastructure.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

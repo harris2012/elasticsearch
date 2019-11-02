@@ -8,7 +8,7 @@ namespace Infrastructure
 {
     /// <summary>
     /// 自定义分词器
-    /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-custom-analyzer.html"/>
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-custom-analyzer.html
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public sealed class CustomAnalyzerAttribute : Attribute
@@ -46,7 +46,7 @@ namespace Infrastructure
 
         /// <summary>
         /// PositionIncrementGap
-        /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/position-increment-gap.html"/>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/position-increment-gap.html
         /// </summary>
         public int position_increment_gap { get; set; }
 

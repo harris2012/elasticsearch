@@ -50,7 +50,9 @@ namespace ElasticSearch.Template.CodeFirst
             
             #line default
             #line hidden
-            this.Write(".xml</DocumentationFile>\r\n  </PropertyGroup>\r\n\r\n</Project>\r\n");
+            this.Write(".xml</DocumentationFile>\r\n  </PropertyGroup>\r\n\r\n  <ItemGroup>\r\n    <Reference Inc" +
+                    "lude=\"Infrastructure\">\r\n      <HintPath>..\\Library\\Infrastructure.dll</HintPath>" +
+                    "\r\n    </Reference>\r\n  </ItemGroup>\r\n\r\n</Project>\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

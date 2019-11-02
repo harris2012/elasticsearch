@@ -16,6 +16,7 @@ namespace Infrastructure
         /// 自定义分析器
         /// </summary>
         /// <param name="name"></param>
+        /// <param name="type"></param>
         public CustomTokenizerAttribute(string name, string type)
         {
             this.Name = name;

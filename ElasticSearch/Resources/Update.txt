@@ -4,8 +4,7 @@ dotnet build
 popd
 
 rmdir /S /Q Java
+rmdir /S /Q Mappings
 
 elasticsearch update
-
-pause
 

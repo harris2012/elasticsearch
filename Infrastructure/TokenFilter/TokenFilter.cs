@@ -11,7 +11,7 @@ namespace Infrastructure
     }
 
     /// <summary>
-    /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-asciifolding-tokenfilter.html"/>
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-asciifolding-tokenfilter.html
     /// </summary>
     public sealed class AsciifoldingTokenFilter : TokenFilter
     {
@@ -19,7 +19,7 @@ namespace Infrastructure
     }
 
     /// <summary>
-    /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-length-tokenfilter.html"/>
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-length-tokenfilter.html
     /// </summary>
     public sealed class LengthTokenFilter : TokenFilter
     {
@@ -29,7 +29,7 @@ namespace Infrastructure
     }
 
     /// <summary>
-    /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-lowercase-tokenfilter.html"/>
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-lowercase-tokenfilter.html
     /// </summary>
     public sealed class LowercaseTokenFilter : TokenFilter
     {
@@ -48,7 +48,7 @@ namespace Infrastructure
     }
 
     /// <summary>
-    /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenfilter.html"/>
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenfilter.html
     /// </summary>
     public sealed class NGramTokenFilter : TokenFilter
     {

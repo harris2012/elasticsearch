@@ -65,12 +65,20 @@
     <Compile Include="Loader\Model\XmlMember.cs" />
     <Compile Include="Loader\Model\XmlMemberParam.cs" />
     <Compile Include="Manager\ManagerBase.cs" />
+    <Compile Include="Manager\MappingBuilder.cs" />
+    <Compile Include="Manager\MappingManager.cs" />
     <Compile Include="Manager\SetupManager.cs" />
     <Compile Include="Manager\UpdateManager.cs" />
     <Compile Include="NameExtension.cs" />
     <Compile Include="Param.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Template\CodeFirst\BookTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Template\CodeFirst\BookTemplatePartial.cs" />
     <Compile Include="Template\CodeFirst\ProductTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -129,7 +137,12 @@
     <None Include="Resources\CSharpGitIgnore.txt" />
     <None Include="Resources\JavaGitIgnore.txt" />
     <None Include="Resources\Update.txt" />
-    <None Include="Resources\Setup.txt" />
+    <None Include="Resources\Infrastructure.dll" />
+    <None Include="Resources\Infrastructure.xml" />
+    <Content Include="Template\CodeFirst\BookTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>BookTemplate.cs</LastGenOutput>
+    </Content>
     <Content Include="Template\CodeFirst\ProductTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ProductTemplate.cs</LastGenOutput>
@@ -162,6 +175,11 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{3c5d791f-e4ab-4f52-bb8b-ead47cc9b5ef}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

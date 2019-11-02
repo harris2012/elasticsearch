@@ -30,6 +30,13 @@ namespace Infrastructure
         /// </summary>
         public int MappingTotalFieldsLimit { get; set; } = -1;
 
+        /// <summary>
+        /// index.max_ngram_diff
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenfilter.html
+        /// </summary>
+        [Obsolete("暂不支持设置")]
+        public int IndexMaxNGramDiff { get; set; }
+
         #endregion
 
         #region 类型

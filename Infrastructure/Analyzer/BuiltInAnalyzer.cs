@@ -8,7 +8,7 @@ namespace Infrastructure
 {
     /// <summary>
     /// 内置分词器
-    /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-analyzers.html"/>
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-analyzers.html
     /// </summary>
     [Flags]
     public enum BuiltInAnalyzer

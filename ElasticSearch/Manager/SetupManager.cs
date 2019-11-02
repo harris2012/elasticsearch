@@ -10,7 +10,7 @@ namespace ElasticSearch.Manager
 {
     public class SetupManager : ManagerBase
     {
-        public static void Setup(Param param)
+        public static void Process(Param param)
         {
             var folder = Environment.CurrentDirectory;
 
@@ -19,6 +19,10 @@ namespace ElasticSearch.Manager
             var projectFolder = Path.Combine(codeFirstFolder, param.ProjectName);
 
             WriteToFile(Path.Combine(codeFirstFolder, ".gitignore"), CodeResource.CSharpGitIgnore);
+
+            WriteToFile(Path.Combine(codeFirstFolder, "Library", "Infrastructure.dll"), CodeResource.Infrastructure_dll);
+
+            WriteToFile(Path.Combine(codeFirstFolder, "Library", "Infrastructure.xml"), CodeResource.Infrastructure_xml);
 
             WriteToFile(Path.Combine(codeFirstFolder, $"{param.ProjectName}.sln"), new SolutionTemplate
             {
@@ -34,6 +38,11 @@ namespace ElasticSearch.Manager
             }.TransformText());
 
             WriteToFile(Path.Combine(projectFolder, "Product.cs"), new ProductTemplate
+            {
+                RootNamespace = param.RootNamespace
+            }.TransformText());
+
+            WriteToFile(Path.Combine(projectFolder, "Book.cs"), new BookTemplate
             {
                 RootNamespace = param.RootNamespace
             }.TransformText());

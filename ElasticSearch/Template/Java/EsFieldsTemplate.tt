@@ -4,6 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="ElasticSearch.Loader.Model" #>
+<#@ import namespace="Infrastructure" #>
 package <#=this.JavaRoot#>;
 
 /*
@@ -43,20 +44,63 @@ public final class <#=this.ClassNode.Name#>Fields {
 #>
     public final static String <#=propertyNode.Name.ToUpperCaseUnderLine()#> = "<#=propertyNode.Name.ToLowerCaseUnderLine()#>";
 <#
-                if(propertyNode.PropertyType == typeof(string))
+                if(propertyNode.FieldAttribute == null)
                 {
+                    continue;
+                }
+
+                if(propertyNode.FieldAttribute is TextFieldAttribute)
+                {
+                    var textFieldAttribute = propertyNode.FieldAttribute as TextFieldAttribute;
                     if(!string.IsNullOrEmpty(propertyNode.Summary))
                     {
 #>
 
     /**
-     * <#=propertyNode.Summary#>
+     * <#=propertyNode.Summary#>(使用`keyword`，不分词)
      */
 <#
                     }
 #>
     public final static String <#=$"{propertyNode.Name.ToUpperCaseUnderLine()}_KEYWORD"#> = "<#=propertyNode.Name.ToLowerCaseUnderLine()#>.keyword";
 <#
+                    //分词器
+                    List<string> analyzers = new List<string>();
+
+                    //内置分词器
+                    var builtInAnalyzers = textFieldAttribute.BuiltInAnalyzer.ToString().ToLower().Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries).OrderBy(x => x).ToList();
+                    analyzers.AddRange(builtInAnalyzers);
+
+                    //ik分词器
+                    var ikAnalyzers = textFieldAttribute.IKAnalyzer.ToString().ToLower().Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries).OrderBy(x => x).ToList();
+                    analyzers.AddRange(ikAnalyzers);
+
+                    //自定义分词器
+                    if (textFieldAttribute.CustomAnalyzer != null && textFieldAttribute.CustomAnalyzer.Length > 0)
+                    {
+                        analyzers.AddRange(textFieldAttribute.CustomAnalyzer);
+                    }
+
+                    foreach (var analyzer in analyzers)
+                    {
+                        if ("none".Equals(analyzer, StringComparison.OrdinalIgnoreCase))
+                        {
+                            continue;
+                        }
+
+                        if(!string.IsNullOrEmpty(propertyNode.Summary))
+                        {
+#>
+
+    /**
+     * <#=propertyNode.Summary#>(使用`<#=analyzer#>`分词器)
+     */
+<#
+                        }
+#>
+    public final static String <#=$"{propertyNode.Name.ToUpperCaseUnderLine()}_{analyzer.ToUpperCaseUnderLine()}"#> = "<#=$"{propertyNode.Name.ToLowerCaseUnderLine()}.{analyzer}"#>";
+<#
+                    }
                 }
             }
         }

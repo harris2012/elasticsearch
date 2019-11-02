@@ -97,6 +97,41 @@ namespace ElasticSearch {
         }
         
         /// <summary>
+        ///   查找 System.Byte[] 类型的本地化资源。
+        /// </summary>
+        internal static byte[] Infrastructure_dll {
+            get {
+                object obj = ResourceManager.GetObject("Infrastructure_dll", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;doc&gt;
+        ///    &lt;assembly&gt;
+        ///        &lt;name&gt;Infrastructure&lt;/name&gt;
+        ///    &lt;/assembly&gt;
+        ///    &lt;members&gt;
+        ///        &lt;member name=&quot;T:Infrastructure.BuiltInAnalyzer&quot;&gt;
+        ///            &lt;summary&gt;
+        ///            内置分词器
+        ///            &lt;see cref=&quot;!:https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-analyzers.html&quot;/&gt;
+        ///            &lt;/summary&gt;
+        ///        &lt;/member&gt;
+        ///        &lt;member name=&quot;F:Infrastructure.BuiltInAnalyzer.NONE&quot;&gt;
+        ///            &lt;summary&gt;
+        ///            未设置
+        ///            &lt;/summary&gt;
+        ///        &lt;/memb [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string Infrastructure_xml {
+            get {
+                return ResourceManager.GetString("Infrastructure_xml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 target/
         ///.idea/
         ///.project
@@ -106,16 +141,6 @@ namespace ElasticSearch {
         internal static string JavaGitIgnore {
             get {
                 return ResourceManager.GetString("JavaGitIgnore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 elasticsearch setup
-        ///pause 的本地化字符串。
-        /// </summary>
-        internal static string Setup {
-            get {
-                return ResourceManager.GetString("Setup", resourceCulture);
             }
         }
         

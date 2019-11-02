@@ -18,16 +18,13 @@ namespace ElasticSearch
         {
             if (args == null || args.Length == 0)
             {
-                Console.WriteLine("operation is required.");
-                Pause();
+                ShowMenu();
                 return;
             }
 
             if ("init".Equals(args[0], StringComparison.OrdinalIgnoreCase))
             {
                 File.WriteAllText("elasticsearch.json", JsonConvert.SerializeObject(new Param(), Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Include }));
-
-                File.WriteAllText("setup.bat", CodeResource.Setup);
 
                 File.WriteAllText("update.bat", CodeResource.Update);
 
@@ -37,7 +34,6 @@ namespace ElasticSearch
             if (!File.Exists("elasticsearch.json"))
             {
                 Console.WriteLine("elasticsearch.json is required.");
-                Pause();
                 return;
             }
 
@@ -47,24 +43,31 @@ namespace ElasticSearch
             switch (args[0])
             {
                 case "setup":
-                    SetupManager.Setup(param);
+                    SetupManager.Process(param);
                     break;
                 case "update":
-                    UpdateManager.Process(param);
+                    {
+                        //生成 java 代码
+                        UpdateManager.Process(param);
+
+                        //生成 mapping 文件
+                        MappingManager.Process(param);
+                    }
                     break;
                 default:
                     break;
             }
         }
 
-        static void Pause()
+        static void ShowMenu()
         {
-            Console.WriteLine("Press any key to continue.");
-            //Console.ReadKey();
+            var menu = @"1. elasticsearch init 创建项目，生成soa.json模版文件
+2. elasticsearch setup 初始化项目
+3. elasticsearch update 更新生成的文件
+";
+
+            Console.WriteLine(menu);
         }
-
-
-
 
 
     }

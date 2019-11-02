@@ -7,22 +7,20 @@
 //     重新生成代码，这些更改将会丢失。
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace ElasticSearch.Template.Java
+namespace ElasticSearch.Template.CodeFirst
 {
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
-    using ElasticSearch.Loader.Model;
-    using Infrastructure;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+    #line 1 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\BookTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class EsFieldsTemplate : EsFieldsTemplateBase
+    public partial class BookTemplate : BookTemplateBase
     {
 #line hidden
         /// <summary>
@@ -30,233 +28,49 @@ namespace ElasticSearch.Template.Java
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("package ");
+            this.Write("using Infrastructure;\r\nusing System;\r\nusing System.Collections.Generic;\r\n\r\nnamesp" +
+                    "ace ");
             
-            #line 8 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.JavaRoot));
-            
-            #line default
-            #line hidden
-            this.Write(@";
-
-/*
- *------------------------------------------------------------------------------
- *     此代码从模板生成。
- *
- *     手动更改此文件可能导致应用程序出现意外的行为。
- *     如果重新生成代码，将覆盖对此文件的手动更改。
- *------------------------------------------------------------------------------
- */
-
-");
-            
-            #line 19 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-        if(!string.IsNullOrEmpty(this.ClassNode.Summary))
-        {
-
+            #line 10 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\BookTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(this.RootNamespace));
             
             #line default
             #line hidden
-            this.Write("/**\r\n * ");
-            
-            #line 24 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.ClassNode.Summary));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n */\r\n");
-            
-            #line 26 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-        }
-
-            
-            #line default
-            #line hidden
-            this.Write("public final class ");
-            
-            #line 29 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.ClassNode.Name));
-            
-            #line default
-            #line hidden
-            this.Write("Fields {\r\n");
-            
-            #line 30 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-        if (this.ClassNode.PropertyNodeList != null && this.ClassNode.PropertyNodeList.Count > 0)
-        {
-            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
-            {
-                if(!string.IsNullOrEmpty(propertyNode.Summary))
-                {
-
-            
-            #line default
-            #line hidden
-            this.Write("\r\n    /**\r\n     * ");
-            
-            #line 40 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n     */\r\n");
-            
-            #line 42 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-                }
-
-            
-            #line default
-            #line hidden
-            this.Write("    public final static String ");
-            
-            #line 45 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToUpperCaseUnderLine()));
-            
-            #line default
-            #line hidden
-            this.Write(" = \"");
-            
-            #line 45 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCaseUnderLine()));
-            
-            #line default
-            #line hidden
-            this.Write("\";\r\n");
-            
-            #line 46 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-                if(propertyNode.FieldAttribute == null)
-                {
-                    continue;
-                }
-
-                if(propertyNode.FieldAttribute is TextFieldAttribute)
-                {
-                    var textFieldAttribute = propertyNode.FieldAttribute as TextFieldAttribute;
-                    if(!string.IsNullOrEmpty(propertyNode.Summary))
-                    {
-
-            
-            #line default
-            #line hidden
-            this.Write("\r\n    /**\r\n     * ");
-            
-            #line 60 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
-            
-            #line default
-            #line hidden
-            this.Write("(使用`keyword`，不分词)\r\n     */\r\n");
-            
-            #line 62 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-                    }
-
-            
-            #line default
-            #line hidden
-            this.Write("    public final static String ");
-            
-            #line 65 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture($"{propertyNode.Name.ToUpperCaseUnderLine()}_KEYWORD"));
-            
-            #line default
-            #line hidden
-            this.Write(" = \"");
-            
-            #line 65 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCaseUnderLine()));
-            
-            #line default
-            #line hidden
-            this.Write(".keyword\";\r\n");
-            
-            #line 66 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-                    //分词器
-                    List<string> analyzers = new List<string>();
-
-                    //内置分词器
-                    var builtInAnalyzers = textFieldAttribute.BuiltInAnalyzer.ToString().ToLower().Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries).OrderBy(x => x).ToList();
-                    analyzers.AddRange(builtInAnalyzers);
-
-                    //ik分词器
-                    var ikAnalyzers = textFieldAttribute.IKAnalyzer.ToString().ToLower().Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries).OrderBy(x => x).ToList();
-                    analyzers.AddRange(ikAnalyzers);
-
-                    //自定义分词器
-                    if (textFieldAttribute.CustomAnalyzer != null && textFieldAttribute.CustomAnalyzer.Length > 0)
-                    {
-                        analyzers.AddRange(textFieldAttribute.CustomAnalyzer);
-                    }
-
-                    foreach (var analyzer in analyzers)
-                    {
-                        if ("none".Equals(analyzer, StringComparison.OrdinalIgnoreCase))
-                        {
-                            continue;
-                        }
-
-                        if(!string.IsNullOrEmpty(propertyNode.Summary))
-                        {
-
-            
-            #line default
-            #line hidden
-            this.Write("\r\n    /**\r\n     * ");
-            
-            #line 96 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
-            
-            #line default
-            #line hidden
-            this.Write("(使用`");
-            
-            #line 96 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(analyzer));
-            
-            #line default
-            #line hidden
-            this.Write("`分词器)\r\n     */\r\n");
-            
-            #line 98 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-                        }
-
-            
-            #line default
-            #line hidden
-            this.Write("    public final static String ");
-            
-            #line 101 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture($"{propertyNode.Name.ToUpperCaseUnderLine()}_{analyzer.ToUpperCaseUnderLine()}"));
-            
-            #line default
-            #line hidden
-            this.Write(" = \"");
-            
-            #line 101 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture($"{propertyNode.Name.ToLowerCaseUnderLine()}.{analyzer}"));
-            
-            #line default
-            #line hidden
-            this.Write("\";\r\n");
-            
-            #line 102 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
-
-                    }
-                }
-            }
-        }
-
-            
-            #line default
-            #line hidden
-            this.Write("}\r\n");
+            this.Write("\r\n{\r\n    /// <summary>\r\n    /// 图书\r\n    /// </summary>\r\n    [Index(Dynamic = Dyna" +
+                    "mic.False, NumberOfShards = 1, NumberOfReplicas = 4, MappingTotalFieldsLimit = 5" +
+                    "0000)]\r\n    [NGramTokenizer(\"trigram_tokenizer\", 1, 3, NGramTokenChar.LETTER | N" +
+                    "GramTokenChar.DIGIT)]\r\n    [EdgeNGramTokenizer(\"edge_ten_tokenizer\", 1, 10, NGra" +
+                    "mTokenChar.LETTER | NGramTokenChar.DIGIT)]\r\n    [EdgeNGramTokenizer(\"edge_twenty" +
+                    "_tokenizer\", 1, 20, NGramTokenChar.LETTER | NGramTokenChar.DIGIT)]\r\n    [Pattern" +
+                    "Tokenizer(\"comma_tokenizer\", \",\")]\r\n    [CustomAnalyzer(\"trigram_analyzer\", \"tri" +
+                    "gram_tokenizer\", BuiltInTokenFilters = BuiltInTokenFilters.LOWERCASE)]\r\n    [Cus" +
+                    "tomAnalyzer(\"edge_ten_analyzer\", \"edge_ten_tokenizer\", BuiltInTokenFilters = Bui" +
+                    "ltInTokenFilters.LOWERCASE)]\r\n    [CustomAnalyzer(\"edge_twenty_analyzer\", \"edge_" +
+                    "twenty_tokenizer\", BuiltInTokenFilters = BuiltInTokenFilters.LOWERCASE)]\r\n    [C" +
+                    "ustomAnalyzer(\"comma_analyzer\", \"comma_tokenizer\")]\r\n    public class Book\r\n    " +
+                    "{\r\n        /// <summary>\r\n        /// 推断 int\r\n        /// </summary>\r\n        pu" +
+                    "blic int AssumeInt { get; set; }\r\n\r\n        /// <summary>\r\n        /// 推断 long\r\n" +
+                    "        /// </summary>\r\n        public long AssumeLong { get; set; }\r\n\r\n        " +
+                    "/// <summary>\r\n        /// 推断 keyword\r\n        /// </summary>\r\n        public st" +
+                    "ring AssumeKeyword { get; set; }\r\n\r\n        /// <summary>\r\n        /// 使用 intege" +
+                    "r\r\n        /// </summary>\r\n        [IntegerField(123)]\r\n        public int UseIn" +
+                    "teger { get; set; }\r\n\r\n        /// <summary>\r\n        /// 使用 long\r\n        /// <" +
+                    "/summary>\r\n        [LongField]\r\n        public long UseLong { get; set; }\r\n\r\n   " +
+                    "     /// <summary>\r\n        /// 使用 keyword\r\n        /// </summary>\r\n        [Key" +
+                    "wordField(IgnoreAbove = 128)]\r\n        public string UseKeyword { get; set; }\r\n\r" +
+                    "\n        /// <summary>\r\n        /// 使用 text\r\n        /// </summary>\r\n        [Te" +
+                    "xtField]\r\n        public string UseText { get; set; }\r\n\r\n        /// <summary>\r\n" +
+                    "        /// 只存储，不索引\r\n        /// </summary>\r\n        [TextField(Index = false)]\r" +
+                    "\n        public string NotIndexMe { get; set; }\r\n\r\n        /// <summary>\r\n      " +
+                    "  /// 只存储，不索引\r\n        /// </summary>\r\n        [TextField(NullValue = \"NULL\")]\r\n" +
+                    "        public string WithNullValue { get; set; }\r\n\r\n        /// <summary>\r\n    " +
+                    "    /// 使用分词器\r\n        /// </summary>\r\n        [TextField(\r\n            IKAnalyz" +
+                    "er = IKAnalyzer.IK_SMART | IKAnalyzer.IK_MAX_WORD,\r\n            BuiltInAnalyzer " +
+                    "= BuiltInAnalyzer.SIMPLE | BuiltInAnalyzer.WHITESPACE,\r\n            CustomAnalyz" +
+                    "er = new string[] { \"ngram_1_1\" })]\r\n        public string UseAnalyzer { get; se" +
+                    "t; }\r\n\r\n        /// <summary>\r\n        /// 带默认分析器\r\n        /// </summary>\r\n     " +
+                    "   [TextField(IKAnalyzer.IK_SMART)]\r\n        public string WithDefaultAnalyzer {" +
+                    " get; set; }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -268,7 +82,7 @@ namespace ElasticSearch.Template.Java
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class EsFieldsTemplateBase
+    public class BookTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

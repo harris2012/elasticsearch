@@ -8,7 +8,7 @@ namespace Infrastructure
 {
     /// <summary>
     /// IK分词器
-    /// <see cref="https://github.com/medcl/elasticsearch-analysis-ik"/>
+    /// https://github.com/medcl/elasticsearch-analysis-ik
     /// </summary>
     [Flags]
     public enum IKAnalyzer

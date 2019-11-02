@@ -1,4 +1,5 @@
 ﻿using ElasticSearch.Loader.Model;
+using Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,11 +14,11 @@ namespace ElasticSearch.Loader
 {
     internal static class AssemblyLoader
     {
-        public static MainModel LoadAssembly(string exePath, string xmlPath)
+        public static MainModel LoadAssembly(string dllPath, string xmlPath)
         {
             MainModel mainModel = new MainModel();
 
-            Assembly assembly = Assembly.LoadFrom(exePath);
+            Assembly assembly = Assembly.LoadFrom(dllPath);
 
             mainModel.AssemblyFullName = assembly.GetName().Name;
 
@@ -239,6 +240,7 @@ namespace ElasticSearch.Loader
 
                     propertyNode.Name = property.Name;
                     propertyNode.PropertyType = property.PropertyType;
+                    propertyNode.FieldAttribute = property.GetCustomAttribute<FieldAttribute>(false);
 
                     var propertyMember = xmlMembers != null ? xmlMembers.FirstOrDefault(v => string.Format("P:{0}.{1}", property.DeclaringType.FullName, property.Name).Equals(v.Name)) : null;
                     if (propertyMember != null)

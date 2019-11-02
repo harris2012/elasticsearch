@@ -1,28 +1,45 @@
 ﻿using Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace TestProject
+namespace ElasticSearch.Manager
 {
-    public class Core
+    public class MappingManager : ManagerBase
     {
         /// <summary>
         /// 用于拆分枚举
         /// </summary>
         private static readonly string[] CommaAndWhitespace = new string[] { " ", "," };
 
-        MappingBuilder builder = new MappingBuilder();
+        public static void Process(Param param)
+        {
+            Assembly assembly = Assembly.LoadFrom(param.DLLPath);
 
-        public string BuildMappings(Type type)
+            var types = assembly.GetTypes();
+
+            var folder = Environment.CurrentDirectory;
+
+            var mappingsFolder = Path.Combine(folder, "Mappings");
+
+            foreach (var type in types)
+            {
+                var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
+                if (indexAttribute == null)
+                {
+                    continue;
+                }
+
+                WriteToFile(Path.Combine(mappingsFolder, $"{type.Name.ToLowerCaseBreakLine()}.json"), BuildMappings(type));
+            }
+        }
+
+        private static string BuildMappings(Type type)
         {
             var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
-            if (indexAttribute == null)
-            {
-                return $"IndexAttribute is required on class {type.FullName}";
-            }
 
             var customAnalyzerAttributeList = type.GetCustomAttributes<CustomAnalyzerAttribute>(false).ToList();
 
@@ -33,7 +50,7 @@ namespace TestProject
             }
             items.Add("mappings", BuildMappings);
 
-            builder.LeftBracket();
+            MappingBuilder builder = new MappingBuilder();
 
             bool first = true;
             foreach (var item in items)
@@ -46,8 +63,6 @@ namespace TestProject
                 builder.KeyValue(item.Key, type, item.Value);
                 first = false;
             }
-
-            builder.RightBracket();
 
             return builder.Build();
         }
@@ -72,17 +87,19 @@ namespace TestProject
                 builder.AppendLine(",");
             }
 
-            builder.KeyValue("analysis", v =>
+            builder.KeyValue("analysis", customAnalyzerAttributeList, customTokenizerAttributeList, BuildAnalysisBody);
+        }
+
+        private static void BuildAnalysisBody(MappingBuilder builder, List<CustomAnalyzerAttribute> customAnalyzerAttributeList, List<CustomTokenizerAttribute> customTokenizerAttributeList)
+        {
+            BuildTokenizers(builder, customTokenizerAttributeList);
+
+            if (customTokenizerAttributeList != null && customTokenizerAttributeList.Count > 0 && customAnalyzerAttributeList != null && customAnalyzerAttributeList.Count > 0)
             {
-                BuildTokenizers(v, customTokenizerAttributeList);
+                builder.AppendLine(",");
+            }
 
-                if (customTokenizerAttributeList != null && customTokenizerAttributeList.Count > 0 && customAnalyzerAttributeList != null && customAnalyzerAttributeList.Count > 0)
-                {
-                    builder.AppendLine(",");
-                }
-
-                BuildAnalyzers(v, customAnalyzerAttributeList);
-            });
+            BuildAnalyzers(builder, customAnalyzerAttributeList);
         }
 
         private static void BuildTokenizers(MappingBuilder builder, List<CustomTokenizerAttribute> customTokenizerAttributeList)
@@ -91,35 +108,39 @@ namespace TestProject
             {
                 return;
             }
-            builder.KeyValue("tokenizer", value =>
+            builder.KeyValue("tokenizer", customTokenizerAttributeList, BuildTokenizersBody);
+        }
+
+        private static void BuildTokenizersBody(MappingBuilder builder, List<CustomTokenizerAttribute> customTokenizerAttributeList)
+        {
+            for (int i = 0; i < customTokenizerAttributeList.Count; i++)
             {
-                for (int i = 0; i < customTokenizerAttributeList.Count; i++)
+                if (i > 0)
                 {
-                    if (i > 0)
-                    {
-                        builder.AppendLine(",");
-                    }
-                    BuildTokenizer(builder, customTokenizerAttributeList[i]);
+                    builder.AppendLine(",");
                 }
-            });
+                BuildTokenizer(builder, customTokenizerAttributeList[i]);
+            }
         }
 
         private static void BuildTokenizer(MappingBuilder builder, CustomTokenizerAttribute customTokenizerAttribute)
         {
-            builder.KeyValue(customTokenizerAttribute.Name, v =>
+            builder.KeyValue(customTokenizerAttribute.Name, customTokenizerAttribute, BuildTokenizerBody);
+        }
+
+        private static void BuildTokenizerBody(MappingBuilder builder, CustomTokenizerAttribute customTokenizerAttribute)
+        {
+            builder.KeyValue("type", customTokenizerAttribute.Type);
+
+            if (customTokenizerAttribute is AbstractNGramTokenizerAttribute)
             {
-                v.KeyValue("type", customTokenizerAttribute.Type);
+                BuildNGramTokenizer(builder, customTokenizerAttribute as AbstractNGramTokenizerAttribute);
+            }
 
-                if (customTokenizerAttribute is AbstractNGramTokenizerAttribute)
-                {
-                    BuildNGramTokenizer(builder, customTokenizerAttribute as AbstractNGramTokenizerAttribute);
-                }
-
-                if (customTokenizerAttribute is PatternTokenizerAttribute)
-                {
-                    BuildPatternTokenier(builder, customTokenizerAttribute as PatternTokenizerAttribute);
-                }
-            });
+            if (customTokenizerAttribute is PatternTokenizerAttribute)
+            {
+                BuildPatternTokenier(builder, customTokenizerAttribute as PatternTokenizerAttribute);
+            }
         }
 
         private static void BuildNGramTokenizer(MappingBuilder builder, AbstractNGramTokenizerAttribute abstractNGramTokenizerAttribute)
@@ -159,25 +180,24 @@ namespace TestProject
             {
                 return;
             }
-            builder.KeyValue("analyzer", value =>
-            {
-                for (int i = 0; i < customAnalyzerAttributeList.Count; i++)
-                {
-                    if (i > 0)
-                    {
-                        builder.AppendLine(",");
-                    }
-                    BuildAnalyzer(builder, customAnalyzerAttributeList[i]);
-                }
-            });
+            builder.KeyValue("analyzer", customAnalyzerAttributeList, BuildAnalyzersBody);
         }
 
-        private static void BuildAnalyzer(MappingBuilder builder, CustomAnalyzerAttribute customAnalyzerAttribute)
+        private static void BuildAnalyzersBody(MappingBuilder builder, List<CustomAnalyzerAttribute> customAnalyzerAttributeList)
         {
-            builder.KeyValue(customAnalyzerAttribute.Name, v =>
+            for (int i = 0; i < customAnalyzerAttributeList.Count; i++)
             {
-                BuildAnalyzerProperties(v, customAnalyzerAttribute);
-            });
+                if (i > 0)
+                {
+                    builder.AppendLine(",");
+                }
+                builder.KeyValue(customAnalyzerAttributeList[i].Name, customAnalyzerAttributeList[i], BuildAnalyzerBody);
+            }
+        }
+
+        private static void BuildAnalyzerBody(MappingBuilder builder, CustomAnalyzerAttribute customAnalyzerAttribute)
+        {
+            BuildAnalyzerProperties(builder, customAnalyzerAttribute);
         }
 
         private static void BuildAnalyzerProperties(MappingBuilder builder, CustomAnalyzerAttribute customAnalyzerAttribute)
@@ -321,20 +341,12 @@ namespace TestProject
                             builder.AppendLine(",").KeyValue("null_value", textFieldAttribute.NullValue);
                         }
 
-                        BuildTextField_Fields(builder, textFieldAttribute);
+                        builder.AppendLine(",").KeyValue("fields", textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove, BuildTextFields);
                     }
                     break;
                 default:
                     break;
             }
-        }
-
-        private static void BuildTextField_Fields(MappingBuilder builder, TextFieldAttribute textFieldAttribute)
-        {
-            builder.AppendLine(",").KeyValue("fields", v =>
-            {
-                BuildTextFields(builder, textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove);
-            });
         }
 
         private static void BuildTextFields(MappingBuilder builder, TextFieldAttribute textFieldAttribute, int keywordIgnoreAbove)
@@ -407,11 +419,6 @@ namespace TestProject
                 return fieldAttribute;
             }
 
-            if (!CoreConfig.PropertyTypeAsFiledAttribute)
-            {
-                return null;
-            }
-
             return PropertyTypeAsFieldAttribute(field.PropertyType, fieldName);
         }
 
@@ -421,7 +428,7 @@ namespace TestProject
         /// <param name="type"></param>
         /// <param name="fieldName"></param>
         /// <returns></returns>
-        public static FieldAttribute PropertyTypeAsFieldAttribute(Type type, string fieldName)
+        private static FieldAttribute PropertyTypeAsFieldAttribute(Type type, string fieldName)
         {
             switch (type.ToString())
             {

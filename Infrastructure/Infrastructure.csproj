@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net452</TargetFramework>
+    <DocumentationFile>bin\$(Configuration)\Infrastructure.xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>

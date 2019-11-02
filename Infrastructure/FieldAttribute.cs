@@ -34,9 +34,9 @@ namespace Infrastructure
         public abstract string Type { get; }
     }
 
-    /// <summary>
-    /// 复杂类型，对应类或者数组或者List
-    /// </summary>
+    ///// <summary>
+    ///// 复杂类型，对应类或者数组或者List
+    ///// </summary>
     //public sealed class ComplexFieldAttribute : FieldAttribute
     //{
     //    public override FieldType FieldType => FieldType.Complex;
@@ -56,7 +56,7 @@ namespace Infrastructure
         public override string Type => "integer";
 
         /// <summary>
-        /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html"/>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
         /// </summary>
         public int? NullValue { get; private set; }
 
@@ -80,7 +80,7 @@ namespace Infrastructure
         public override string Type => "long";
 
         /// <summary>
-        /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html"/>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
         /// </summary>
         public long? NullValue { get; private set; }
 
@@ -104,7 +104,7 @@ namespace Infrastructure
         public override string Type => "boolean";
 
         /// <summary>
-        /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html"/>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
         /// </summary>
         public bool? NullValue { get; private set; }
 
@@ -127,14 +127,14 @@ namespace Infrastructure
 
         /// <summary>
         /// `ignore_above`
-        /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/current/ignore-above.html"/>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/current/ignore-above.html
         /// </summary>
         public int IgnoreAbove { get; set; } = 256;
 
         public override string Type => "keyword";
 
         /// <summary>
-        /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html"/>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
         /// </summary>
         public string NullValue { get; set; }
     }
@@ -150,7 +150,7 @@ namespace Infrastructure
 
         /// <summary>
         /// `ignore_above`
-        /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/current/ignore-above.html"/>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/current/ignore-above.html
         /// </summary>
         public int KeywordIgnoreAbove { get; set; } = 256;
 
@@ -175,7 +175,7 @@ namespace Infrastructure
         public string DefaultAnalyzer { get; private set; }
 
         /// <summary>
-        /// <see cref="https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html"/>
+        /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
         /// </summary>
         public string NullValue { get; set; }
 
@@ -219,7 +219,6 @@ namespace Infrastructure
         /// <summary>
         /// 不指定基础分析器
         /// </summary>
-        /// <param name="defaultAnalyzer">基础分析器</param>
         public TextFieldAttribute()
         {
         }

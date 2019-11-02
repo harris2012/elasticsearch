@@ -1,0 +1,634 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Infrastructure</name>
+    </assembly>
+    <members>
+        <member name="T:Infrastructure.BuiltInAnalyzer">
+            <summary>
+            内置分词器
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-analyzers.html
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.NONE">
+            <summary>
+            未设置
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.STANDARD">
+            <summary>
+            【内置分词器】standard
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.SIMPLE">
+            <summary>
+            【内置分词器】simple
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.WHITESPACE">
+            <summary>
+            【内置分词器】whitespace
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.STOP">
+            <summary>
+            【内置分词器】stop
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.KEYWORD">
+            <summary>
+            【内置分词器】keyword
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.PATTERN">
+            <summary>
+            【内置分词器】pattern
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.ENGLISH">
+            <summary>
+            【内置分词器】english
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.FRENCH">
+            <summary>
+            【内置分词器】french
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.CHINESE">
+            <summary>
+            【内置分词器】chinese
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInAnalyzer.FINGERPRINT">
+            <summary>
+            【被指分词器】fingerprint
+            </summary>
+        </member>
+        <member name="T:Infrastructure.CustomAnalyzerAttribute">
+            <summary>
+            自定义分词器
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-custom-analyzer.html
+            </summary>
+        </member>
+        <member name="M:Infrastructure.CustomAnalyzerAttribute.#ctor(System.String,System.String)">
+            <summary>
+            自定义分词名称
+            </summary>
+            <param name="name"></param>
+            <param name="tokenizer"></param>
+        </member>
+        <member name="P:Infrastructure.CustomAnalyzerAttribute.Name">
+            <summary>
+            分析器名称
+            </summary>
+        </member>
+        <member name="P:Infrastructure.CustomAnalyzerAttribute.Tokenizer">
+            <summary>
+            分词器
+            </summary>
+        </member>
+        <member name="P:Infrastructure.CustomAnalyzerAttribute.BuiltInCharacterFilters">
+            <summary>
+            内置字符过滤器
+            </summary>
+        </member>
+        <member name="P:Infrastructure.CustomAnalyzerAttribute.BuiltInTokenFilters">
+            <summary>
+            内置token过滤器
+            </summary>
+        </member>
+        <member name="P:Infrastructure.CustomAnalyzerAttribute.position_increment_gap">
+            <summary>
+            PositionIncrementGap
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/position-increment-gap.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.IKAnalyzer">
+            <summary>
+            IK分词器
+            https://github.com/medcl/elasticsearch-analysis-ik
+            </summary>
+        </member>
+        <member name="F:Infrastructure.IKAnalyzer.NONE">
+            <summary>
+            未设置
+            </summary>
+        </member>
+        <member name="F:Infrastructure.IKAnalyzer.IK_MAX_WORD">
+            <summary>
+            ik_max_word
+            </summary>
+        </member>
+        <member name="F:Infrastructure.IKAnalyzer.IK_SMART">
+            <summary>
+            ik_smart
+            </summary>
+        </member>
+        <member name="T:Infrastructure.BuiltInCharacterFilters">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-charfilters.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.FieldAttribute">
+            <summary>
+            对应一个文档里面的字段
+            </summary>
+        </member>
+        <member name="P:Infrastructure.FieldAttribute.Name">
+            <summary>
+            字段名
+            </summary>
+        </member>
+        <member name="P:Infrastructure.FieldAttribute.Index">
+            <summary>
+            是否索引该字段
+            默认值是true
+            </summary>
+        </member>
+        <member name="P:Infrastructure.FieldAttribute.FieldType">
+            <summary>
+            字段类型
+            </summary>
+        </member>
+        <member name="P:Infrastructure.FieldAttribute.Type">
+            <summary>
+            ES内部字段类型
+            </summary>
+        </member>
+        <member name="T:Infrastructure.IntegerFieldAttribute">
+            <summary>
+            整型
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IntegerFieldAttribute.NullValue">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.LongFieldAttribute">
+            <summary>
+            长整型
+            </summary>
+        </member>
+        <member name="P:Infrastructure.LongFieldAttribute.NullValue">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.BooleanFieldAttribute">
+            <summary>
+            布尔型
+            </summary>
+        </member>
+        <member name="P:Infrastructure.BooleanFieldAttribute.NullValue">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.KeywordFieldAttribute">
+            <summary>
+            字符串(不分词)
+            </summary>
+        </member>
+        <member name="P:Infrastructure.KeywordFieldAttribute.IgnoreAbove">
+            <summary>
+            `ignore_above`
+            https://www.elastic.co/guide/en/elasticsearch/reference/current/ignore-above.html
+            </summary>
+        </member>
+        <member name="P:Infrastructure.KeywordFieldAttribute.NullValue">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.TextFieldAttribute">
+            <summary>
+            字符串(分词)
+            </summary>
+        </member>
+        <member name="P:Infrastructure.TextFieldAttribute.KeywordIgnoreAbove">
+            <summary>
+            `ignore_above`
+            https://www.elastic.co/guide/en/elasticsearch/reference/current/ignore-above.html
+            </summary>
+        </member>
+        <member name="P:Infrastructure.TextFieldAttribute.BuiltInAnalyzer">
+            <summary>
+            内置分词器
+            </summary>
+        </member>
+        <member name="P:Infrastructure.TextFieldAttribute.IKAnalyzer">
+            <summary>
+            IK分词器
+            </summary>
+        </member>
+        <member name="P:Infrastructure.TextFieldAttribute.CustomAnalyzer">
+            <summary>
+            自定义分词器
+            </summary>
+        </member>
+        <member name="P:Infrastructure.TextFieldAttribute.DefaultAnalyzer">
+            <summary>
+            默认分析器
+            </summary>
+        </member>
+        <member name="P:Infrastructure.TextFieldAttribute.NullValue">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
+            </summary>
+        </member>
+        <member name="M:Infrastructure.TextFieldAttribute.#ctor(Infrastructure.BuiltInAnalyzer)">
+            <summary>
+            使用`标准分析器`作为基础分析器
+            </summary>
+            <param name="defaultAnalyzer">基础分析器</param>
+        </member>
+        <member name="M:Infrastructure.TextFieldAttribute.#ctor(Infrastructure.IKAnalyzer)">
+            <summary>
+            使用`IK分析器`作为基础分析器
+            </summary>
+            <param name="defaultAnalyzer">基础分析器</param>
+        </member>
+        <member name="M:Infrastructure.TextFieldAttribute.#ctor(System.String)">
+            <summary>
+            使用`自定义分析器`作为基础分析器
+            </summary>
+            <param name="defaultAnalyzer">基础分析器</param>
+        </member>
+        <member name="M:Infrastructure.TextFieldAttribute.#ctor">
+            <summary>
+            不指定基础分析器
+            </summary>
+        </member>
+        <member name="T:Infrastructure.FieldType">
+            <summary>
+            属性类型
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Text">
+            <summary>
+            【文本型】text。建议直接使用`TextField`
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Keyword">
+            <summary>
+            【文本型】keyword（不会分词）
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Integer">
+            <summary>
+            【数值型】integer
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Long">
+            <summary>
+            【数值型】long
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Short">
+            <summary>
+            【数值型】short
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Byte">
+            <summary>
+            【数值型】byte
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Double">
+            <summary>
+            【数值型】double
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Float">
+            <summary>
+            【数值型】float
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.HalfFloat">
+            <summary>
+            【数值型】half_float
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Date">
+            <summary>
+            【日期类型】date
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Boolean">
+            <summary>
+            【布尔类型】boolean
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Binary">
+            <summary>
+            【二进制类型】binary
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.IntegerRange">
+            <summary>
+            【范围类型】integer_range
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.FloatRange">
+            <summary>
+            【范围类型】float_range
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.LongRange">
+            <summary>
+            【范围类型】long_range
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.DoubleRange">
+            <summary>
+            【范围类型】double_range
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.DateRange">
+            <summary>
+            【范围类型】date_range
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Array">
+            <summary>
+            【数组类型】array
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Object">
+            <summary>
+            【对象类型】object
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.NestedObject">
+            <summary>
+            【嵌套类型】nested object
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.GeoPoint">
+            <summary>
+            【地理位置数据类型】geo_point
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.GeoShape">
+            <summary>
+            【地理位置数据类型】geo_shape
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Ip">
+            <summary>
+            【专用类型】ip（记录ip地址）
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Completion">
+            <summary>
+            【专用类型】completion（实现自动补全）
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.TokenCount">
+            <summary>
+            【专用类型】token_count（记录分词数）
+            </summary>
+        </member>
+        <member name="F:Infrastructure.FieldType.Murmur3">
+            <summary>
+            【专用类型】murmur3（记录字符串hash值）
+            </summary>
+        </member>
+        <member name="T:Infrastructure.IndexAttribute">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IndexAttribute.IndexName">
+            <summary>
+            索引名。如果不显示设置，将使用类名作为索引名
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IndexAttribute.NumberOfShards">
+            <summary>
+            分片数 number_of_shards，默认值是5
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IndexAttribute.NumberOfReplicas">
+            <summary>
+            副本数 number_of_replicas，默认值是1
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IndexAttribute.MappingTotalFieldsLimit">
+            <summary>
+            最大字段数
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IndexAttribute.IndexMaxNGramDiff">
+            <summary>
+            index.max_ngram_diff
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenfilter.html
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IndexAttribute.TypeName">
+            <summary>
+            类型名称
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IndexAttribute.Dynamic">
+            <summary>
+            是否支持动态字段
+            </summary>
+        </member>
+        <member name="P:Infrastructure.IndexAttribute.AllEnabled">
+            <summary>
+            "_all": { "enabled": true }
+            es内部默认值是 false
+            </summary>
+        </member>
+        <member name="T:Infrastructure.Dynamic">
+            <summary>
+            动态索引相关配置
+            </summary>
+        </member>
+        <member name="F:Infrastructure.Dynamic.True">
+            <summary>
+            默认值，表示允许选自动新增字段
+            </summary>
+        </member>
+        <member name="F:Infrastructure.Dynamic.False">
+            <summary>
+            不允许自动新增字段，但是文档可以正常写入，但无法对字段进行查询等操作
+            </summary>
+        </member>
+        <member name="F:Infrastructure.Dynamic.Strict">
+            <summary>
+            严格模式，文档不能写入，报错
+            </summary>
+        </member>
+        <member name="T:Infrastructure.ALLEnabled">
+            <summary>
+            "_all": { "enabled": true }
+            es内部默认值是 false
+            </summary>
+        </member>
+        <member name="F:Infrastructure.ALLEnabled.None">
+            <summary>
+            未设置
+            </summary>
+        </member>
+        <member name="F:Infrastructure.ALLEnabled.True">
+            <summary>
+            是
+            </summary>
+        </member>
+        <member name="F:Infrastructure.ALLEnabled.False">
+            <summary>
+            否(默认值)
+            </summary>
+        </member>
+        <member name="T:Infrastructure.BuiltInTokenFilters">
+            <summary>
+            Token Filters
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-tokenfilters.html
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInTokenFilters.None">
+            <summary>
+            未配置
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInTokenFilters.LENGTH">
+            <summary>
+            控制长度 length
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-length-tokenfilter.html
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInTokenFilters.SYNONYMS">
+            <summary>
+            增加同义词 synonyms
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-tokenfilters.html
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInTokenFilters.ASCIIFOLDING">
+            <summary>
+            asciifolding
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-asciifolding-tokenfilter.html
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInTokenFilters.LOWERCASE">
+            <summary>
+             转换为小写 lowercase
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-lowercase-tokenfilter.html
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInTokenFilters.UPPERCASE">
+            <summary>
+            转换为大写 uppercase
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-uppercase-tokenfilter.html
+            </summary>
+        </member>
+        <member name="F:Infrastructure.BuiltInTokenFilters.REMOVE_DUPLICATES">
+            <summary>
+            删除重复 remove_duplicates
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-remove-duplicates-tokenfilter.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.AsciifoldingTokenFilter">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-asciifolding-tokenfilter.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.LengthTokenFilter">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-length-tokenfilter.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.LowercaseTokenFilter">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-lowercase-tokenfilter.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.NGramTokenFilter">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenfilter.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.CustomTokenizerAttribute">
+            <summary>
+            自定义分析器
+            </summary>
+        </member>
+        <member name="M:Infrastructure.CustomTokenizerAttribute.#ctor(System.String,System.String)">
+            <summary>
+            自定义分析器
+            </summary>
+            <param name="name"></param>
+            <param name="type"></param>
+        </member>
+        <member name="T:Infrastructure.NGramTokenizerAttribute">
+            <summary>
+            NGram 元分词器
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenizer.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.EdgeNGramTokenizerAttribute">
+            <summary>
+            NGram 元分词器
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenizer.html
+            </summary>
+        </member>
+        <member name="P:Infrastructure.AbstractNGramTokenizerAttribute.MinGram">
+            <summary>
+            min_gram es默认值是1
+            </summary>
+        </member>
+        <member name="P:Infrastructure.AbstractNGramTokenizerAttribute.MaxGram">
+            <summary>
+            max_gram es默认值是 2
+            </summary>
+        </member>
+        <member name="P:Infrastructure.AbstractNGramTokenizerAttribute.TokenChars">
+            <summary>
+            token_chars es默认值是 []
+            </summary>
+        </member>
+        <member name="T:Infrastructure.NGramTokenChar">
+            <summary>
+            ngram tokenizer token_chars
+            </summary>
+        </member>
+        <member name="F:Infrastructure.NGramTokenChar.NONE">
+            <summary>
+            未设置
+            </summary>
+        </member>
+        <member name="F:Infrastructure.NGramTokenChar.LETTER">
+            <summary>
+            letter
+            </summary>
+        </member>
+        <member name="F:Infrastructure.NGramTokenChar.DIGIT">
+            <summary>
+            digit
+            </summary>
+        </member>
+        <member name="F:Infrastructure.NGramTokenChar.WHITESPACE">
+            <summary>
+            whitespace
+            </summary>
+        </member>
+        <member name="F:Infrastructure.NGramTokenChar.PUNCTUATION">
+            <summary>
+            punctuation
+            </summary>
+        </member>
+        <member name="F:Infrastructure.NGramTokenChar.SYMBOL">
+            <summary>
+            symbol
+            </summary>
+        </member>
+        <member name="T:Infrastructure.PatternTokenizerAttribute">
+            <summary>
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-pattern-tokenizer.html
+            </summary>
+        </member>
+    </members>
+</doc>
