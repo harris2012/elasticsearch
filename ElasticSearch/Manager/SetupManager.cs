@@ -29,7 +29,7 @@ namespace ElasticSearch.Manager
                     ProjectName = param.ProjectName,
                     SolutionGuid = param.SolutionGuid,
                     ProjectGuid = param.ProjectGuid,
-                    MiscGuid = param.MiscGuid
+                    ExampleGuid = param.ExampleGuid
                 }.TransformText());
 
                 //project

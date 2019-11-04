@@ -9,7 +9,7 @@ VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<#=this.ProjectName#>", "<#=this.ProjectName#>\\<#=this.ProjectName#>.csproj", "{<#=this.ProjectGuid#>}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{<#=this.MiscGuid#>}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{<#=this.ExampleGuid#>}"
 	ProjectSection(SolutionItems) = preProject
 		Example\Book.cs = Example\Book.cs
 		Example\Product.cs = Example\Product.cs

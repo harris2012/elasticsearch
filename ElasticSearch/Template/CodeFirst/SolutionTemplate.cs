@@ -62,7 +62,7 @@ namespace ElasticSearch.Template.CodeFirst
                     "xample\", \"{");
             
             #line 12 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(this.MiscGuid));
+            this.Write(this.ToStringHelper.ToStringWithCulture(this.ExampleGuid));
             
             #line default
             #line hidden

@@ -36,7 +36,7 @@ namespace ElasticSearch
         /// <summary>
         /// 解决方案文件
         /// </summary>
-        public string MiscGuid { get; set; } = Guid.NewGuid().ToString("D").ToUpper();
+        public string ExampleGuid { get; set; } = Guid.NewGuid().ToString("D").ToUpper();
 
         /// <summary>
         /// CodeFirst 解决方案 Guid

@@ -14,6 +14,6 @@ namespace ElasticSearch.Template.CodeFirst
 
         public string SolutionGuid { get; set; }
 
-        public string MiscGuid { get; set; }
+        public string ExampleGuid { get; set; }
     }
 }
