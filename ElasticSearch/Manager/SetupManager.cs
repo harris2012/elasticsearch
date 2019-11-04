@@ -14,43 +14,55 @@ namespace ElasticSearch.Manager
         {
             var folder = Environment.CurrentDirectory;
 
-            var codeFirstFolder = Path.Combine(folder, "CodeFirst");
-
-            var projectFolder = Path.Combine(codeFirstFolder, param.ProjectName);
-
-            WriteToFile(Path.Combine(codeFirstFolder, ".gitignore"), CodeResource.CSharpGitIgnore);
-
-            WriteToFile(Path.Combine(codeFirstFolder, "Library", "Infrastructure.dll"), CodeResource.Infrastructure_dll);
-
-            WriteToFile(Path.Combine(codeFirstFolder, "Library", "Infrastructure.xml"), CodeResource.Infrastructure_xml);
-
-            WriteToFile(Path.Combine(codeFirstFolder, $"{param.ProjectName}.sln"), new SolutionTemplate
+            //code first
             {
-                ProjectName = param.ProjectName,
-                SolutionGuid = param.SolutionGuid,
-                ProjectGuid = param.ProjectGuid
-            }.TransformText());
+                var codeFirstFolder = Path.Combine(folder, "CodeFirst");
 
-            WriteToFile(Path.Combine(projectFolder, $"{param.ProjectName}.csproj"), new ProjectTemplate
-            {
-                RootNamespace = param.AssemblyName,
-                AssemblyName = param.AssemblyName
-            }.TransformText());
+                WriteToFile(Path.Combine(codeFirstFolder, ".gitignore"), CodeResource.CSharpGitIgnore);
 
-            WriteToFile(Path.Combine(projectFolder, "Product.cs"), new ProductTemplate
-            {
-                RootNamespace = param.RootNamespace
-            }.TransformText());
+                WriteToFile(Path.Combine(codeFirstFolder, "Library", "Infrastructure.dll"), CodeResource.Infrastructure_dll);
 
-            WriteToFile(Path.Combine(projectFolder, "Book.cs"), new BookTemplate
-            {
-                RootNamespace = param.RootNamespace
-            }.TransformText());
+                WriteToFile(Path.Combine(codeFirstFolder, "Library", "Infrastructure.xml"), CodeResource.Infrastructure_xml);
 
-            WriteToFile(Path.Combine(projectFolder, "Tag.cs"), new TagTemplate
-            {
-                RootNamespace = param.RootNamespace
-            }.TransformText());
+                WriteToFile(Path.Combine(codeFirstFolder, $"{param.ProjectName}.sln"), new SolutionTemplate
+                {
+                    ProjectName = param.ProjectName,
+                    SolutionGuid = param.SolutionGuid,
+                    ProjectGuid = param.ProjectGuid,
+                    MiscGuid = param.MiscGuid
+                }.TransformText());
+
+                //project
+                {
+                    var projectFolder = Path.Combine(codeFirstFolder, param.ProjectName);
+
+                    WriteToFile(Path.Combine(projectFolder, $"{param.ProjectName}.csproj"), new ProjectTemplate
+                    {
+                        RootNamespace = param.AssemblyName,
+                        AssemblyName = param.AssemblyName
+                    }.TransformText());
+                }
+
+                //example
+                {
+                    var exampleFolder = Path.Combine(codeFirstFolder, "Example");
+
+                    WriteToFile(Path.Combine(exampleFolder, "Product.cs"), new ProductTemplate
+                    {
+                        RootNamespace = param.RootNamespace
+                    }.TransformText());
+
+                    WriteToFile(Path.Combine(exampleFolder, "Book.cs"), new BookTemplate
+                    {
+                        RootNamespace = param.RootNamespace
+                    }.TransformText());
+
+                    WriteToFile(Path.Combine(exampleFolder, "Tag.cs"), new TagTemplate
+                    {
+                        RootNamespace = param.RootNamespace
+                    }.TransformText());
+                }
+            }
         }
     }
 }

@@ -34,6 +34,11 @@ namespace ElasticSearch
         public string ProjectGuid { get; set; } = Guid.NewGuid().ToString("D").ToUpper();
 
         /// <summary>
+        /// 解决方案文件
+        /// </summary>
+        public string MiscGuid { get; set; } = Guid.NewGuid().ToString("D").ToUpper();
+
+        /// <summary>
         /// CodeFirst 解决方案 Guid
         /// </summary>
         public string SolutionGuid { get; set; } = Guid.NewGuid().ToString("D").ToUpper();

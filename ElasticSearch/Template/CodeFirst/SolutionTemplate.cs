@@ -18,7 +18,7 @@ namespace ElasticSearch.Template.CodeFirst
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+    #line 1 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class SolutionTemplate : SolutionTemplateBase
     {
@@ -28,62 +28,81 @@ namespace ElasticSearch.Template.CodeFirst
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nMicrosoft Visual Studio Solution File, Format Version 12.00\r\n# Visual Studio Ve" +
-                    "rsion 16\r\nVisualStudioVersion = 16.0.29201.188\r\nMinimumVisualStudioVersion = 10." +
-                    "0.40219.1\r\nProject(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"");
+            this.Write("Microsoft Visual Studio Solution File, Format Version 12.00\r\n# Visual Studio Vers" +
+                    "ion 16\r\nVisualStudioVersion = 16.0.29201.188\r\nMinimumVisualStudioVersion = 10.0." +
+                    "40219.1\r\nProject(\"{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}\") = \"");
             
-            #line 11 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 10 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ProjectName));
             
             #line default
             #line hidden
             this.Write("\", \"");
             
-            #line 11 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 10 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ProjectName));
             
             #line default
             #line hidden
             this.Write("\\");
             
-            #line 11 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 10 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ProjectName));
             
             #line default
             #line hidden
             this.Write(".csproj\", \"{");
             
-            #line 11 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 10 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ProjectGuid));
             
             #line default
             #line hidden
-            this.Write("}\"\r\nEndProject\r\nGlobal\r\n\tGlobalSection(SolutionConfigurationPlatforms) = preSolut" +
-                    "ion\r\n\t\tDebug|Any CPU = Debug|Any CPU\r\n\t\tRelease|Any CPU = Release|Any CPU\r\n\tEndG" +
-                    "lobalSection\r\n\tGlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n\t\t{");
+            this.Write("}\"\r\nEndProject\r\nProject(\"{2150E333-8FDC-42A3-9474-1A3956D46DE8}\") = \"Example\", \"E" +
+                    "xample\", \"{");
             
-            #line 19 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 12 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(this.MiscGuid));
+            
+            #line default
+            #line hidden
+            this.Write(@"}""
+	ProjectSection(SolutionItems) = preProject
+		Example\Book.cs = Example\Book.cs
+		Example\Product.cs = Example\Product.cs
+		Example\Tag.cs = Example\Tag.cs
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{");
+            
+            #line 25 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ProjectGuid));
             
             #line default
             #line hidden
             this.Write("}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{");
             
-            #line 20 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 26 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ProjectGuid));
             
             #line default
             #line hidden
             this.Write("}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{");
             
-            #line 21 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 27 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ProjectGuid));
             
             #line default
             #line hidden
             this.Write("}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{");
             
-            #line 22 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 28 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ProjectGuid));
             
             #line default
@@ -92,7 +111,7 @@ namespace ElasticSearch.Template.CodeFirst
                     "lutionProperties) = preSolution\r\n\t\tHideSolutionNode = FALSE\r\n\tEndGlobalSection\r\n" +
                     "\tGlobalSection(ExtensibilityGlobals) = postSolution\r\n\t\tSolutionGuid = {");
             
-            #line 28 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
+            #line 34 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\SolutionTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.SolutionGuid));
             
             #line default
