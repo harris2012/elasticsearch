@@ -44,6 +44,10 @@ namespace ElasticSearch.Manager
             var customAnalyzerAttributeList = type.GetCustomAttributes<CustomAnalyzerAttribute>(false).ToList();
 
             Dictionary<string, Action<MappingBuilder, Type>> items = new Dictionary<string, Action<MappingBuilder, Type>>();
+            if (indexAttribute.Aliases != null && indexAttribute.Aliases.Length > 0)
+            {
+                items.Add("aliases", BuildAliases);
+            }
             if (indexAttribute.NumberOfReplicas > 0 || indexAttribute.NumberOfShards > 0 || (customAnalyzerAttributeList != null && customAnalyzerAttributeList.Count > 0))
             {
                 items.Add("settings", BuildSettings);
@@ -65,6 +69,20 @@ namespace ElasticSearch.Manager
             }
 
             return builder.Build();
+        }
+
+        private static void BuildAliases(MappingBuilder builder, Type type)
+        {
+            var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
+
+            for (int i = 0; i < indexAttribute.Aliases.Length; i++)
+            {
+                if (i > 0)
+                {
+                    builder.AppendLine(",");
+                }
+                builder.KeyOfObject(indexAttribute.Aliases[i]);
+            }
         }
 
         private static void BuildSettings(MappingBuilder builder, Type type)

@@ -7,7 +7,7 @@ namespace Example
     /// <summary>
     /// 图书
     /// </summary>
-    [Index(Dynamic = Dynamic.False, NumberOfShards = 1, NumberOfReplicas = 4, MappingTotalFieldsLimit = 50000)]
+    [Index(IndexName = "book-index", Aliases = new string[] { "book-alias" }, Dynamic = Dynamic.False, NumberOfShards = 1, NumberOfReplicas = 4, MappingTotalFieldsLimit = 50000)]
     [NGramTokenizer("trigram_tokenizer", 1, 3, NGramTokenChar.LETTER | NGramTokenChar.DIGIT)]
     [EdgeNGramTokenizer("edge_ten_tokenizer", 1, 10, NGramTokenChar.LETTER | NGramTokenChar.DIGIT)]
     [EdgeNGramTokenizer("edge_twenty_tokenizer", 1, 20, NGramTokenChar.LETTER | NGramTokenChar.DIGIT)]

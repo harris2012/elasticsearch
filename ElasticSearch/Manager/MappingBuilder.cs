@@ -75,6 +75,23 @@ namespace ElasticSearch.Manager
             return this;
         }
 
+        public MappingBuilder KeyOfObject(string key)
+        {
+            return KeyOf(key, "{}");
+        }
+
+        public MappingBuilder KeyOfArray(string key)
+        {
+            return KeyOf(key, "[]");
+        }
+
+        private MappingBuilder KeyOf(string key, string value)
+        {
+            stringBuilder.Append(GetIndent()).Append("\"").Append(key).Append("\"").Append(BeforeColon).Append(": ").Append(value);
+
+            return this;
+        }
+
         public MappingBuilder KeyValue(string key, Action<MappingBuilder> value)
         {
             StartKey(key);

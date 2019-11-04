@@ -37,6 +37,11 @@ namespace Infrastructure
         [Obsolete("暂不支持设置")]
         public int IndexMaxNGramDiff { get; set; }
 
+        /// <summary>
+        /// 索引别名
+        /// </summary>
+        public string[] Aliases { get; set; }
+
         #endregion
 
         #region 类型

@@ -8,3 +8,4 @@ rmdir /S /Q Mappings
 
 elasticsearch update
 
+pause
