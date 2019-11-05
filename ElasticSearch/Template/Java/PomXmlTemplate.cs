@@ -18,7 +18,7 @@ namespace ElasticSearch.Template.Java
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
+    #line 1 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class PomXmlTemplate : PomXmlTemplateBase
     {
@@ -40,21 +40,21 @@ namespace ElasticSearch.Template.Java
 
 	<groupId>");
             
-            #line 16 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
+            #line 16 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.GroupId));
             
             #line default
             #line hidden
             this.Write("</groupId>\r\n\t<artifactId>");
             
-            #line 17 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
+            #line 17 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ArtifactId));
             
             #line default
             #line hidden
             this.Write("</artifactId>\r\n\t<version>");
             
-            #line 18 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
+            #line 18 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.Version));
             
             #line default
@@ -62,20 +62,30 @@ namespace ElasticSearch.Template.Java
             this.Write("</version>\r\n\r\n\t<properties>\r\n\t\t<framework-bom.version>0.9.5</framework-bom.versio" +
                     "n>\r\n\t\t<releases.repo>");
             
-            #line 22 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
+            #line 22 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ReleaseRepo));
             
             #line default
             #line hidden
             this.Write("</releases.repo>\r\n\t\t<snapshots.repo>");
             
-            #line 23 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
+            #line 23 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\PomXmlTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.SnapshotRepo));
             
             #line default
             #line hidden
             this.Write(@"</snapshots.repo>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.8.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -98,6 +108,14 @@ namespace ElasticSearch.Template.Java
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+	</dependencies>
+
 </project>
 ");
             return this.GenerationEnvironment.ToString();

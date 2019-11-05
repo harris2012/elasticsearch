@@ -14,6 +14,8 @@ package <#=this.JavaRoot#>;
  *------------------------------------------------------------------------------
  */
 
+import com.google.gson.annotations.SerializedName;
+
 <#
     if(this.ClassNode.Imports != null && this.ClassNode.Imports.Count > 0)
     {
@@ -52,6 +54,7 @@ public class <#=this.ClassNode.Name#> {
 <#
                 }
 #>
+    @SerializedName("<#=propertyNode.Name.ToLowerCaseUnderLine()#>")
     private <#=propertyNode.PropertyType.ToJavaType(this.RootNamespace)#> <#=propertyNode.Name.ToLowerCamelCase()#>;
 <#
             }
