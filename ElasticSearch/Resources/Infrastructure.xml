@@ -556,6 +556,47 @@
             https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenfilter.html
             </summary>
         </member>
+        <member name="T:Infrastructure.CharGroupTokenizerAttribute">
+            <summary>
+            字符组分词器
+            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-chargroup-tokenizer.html
+            </summary>
+        </member>
+        <member name="T:Infrastructure.CharGroupTokenizeOnChars">
+            <summary>
+            内置字符组字符
+            </summary>
+        </member>
+        <member name="F:Infrastructure.CharGroupTokenizeOnChars.None">
+            <summary>
+            未配置
+            </summary>
+        </member>
+        <member name="F:Infrastructure.CharGroupTokenizeOnChars.Whitespace">
+            <summary>
+            空格
+            </summary>
+        </member>
+        <member name="F:Infrastructure.CharGroupTokenizeOnChars.Letter">
+            <summary>
+            字母
+            </summary>
+        </member>
+        <member name="F:Infrastructure.CharGroupTokenizeOnChars.Digit">
+            <summary>
+            数字
+            </summary>
+        </member>
+        <member name="F:Infrastructure.CharGroupTokenizeOnChars.Punctuation">
+            <summary>
+            标点符号
+            </summary>
+        </member>
+        <member name="F:Infrastructure.CharGroupTokenizeOnChars.Symbol">
+            <summary>
+            符号
+            </summary>
+        </member>
         <member name="T:Infrastructure.CustomTokenizerAttribute">
             <summary>
             自定义分析器

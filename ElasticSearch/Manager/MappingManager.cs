@@ -159,6 +159,11 @@ namespace ElasticSearch.Manager
             {
                 BuildPatternTokenier(builder, customTokenizerAttribute as PatternTokenizerAttribute);
             }
+
+            if (customTokenizerAttribute is CharGroupTokenizerAttribute)
+            {
+                BuildCharGroupTokenizer(builder, customTokenizerAttribute as CharGroupTokenizerAttribute);
+            }
         }
 
         private static void BuildNGramTokenizer(MappingBuilder builder, AbstractNGramTokenizerAttribute abstractNGramTokenizerAttribute)
@@ -190,6 +195,28 @@ namespace ElasticSearch.Manager
             {
                 builder.AppendLine(",").KeyValue("pattern", patternTokenizerAttribute.Pattern);
             }
+        }
+
+        private static void BuildCharGroupTokenizer(MappingBuilder builder, CharGroupTokenizerAttribute charGroupTokenizerAttribute)
+        {
+            List<string> tokenizeOChars = new List<string>();
+
+            if (charGroupTokenizerAttribute.Chars != null && charGroupTokenizerAttribute.Chars.Length > 0)
+            {
+                tokenizeOChars.AddRange(charGroupTokenizerAttribute.Chars.Select(v => v.ToString()));
+            }
+
+            var charGroupTokenizeOnChars = charGroupTokenizerAttribute.CharGroupTokenizeOnChars.ToString()
+                .ToLower()
+                .Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries)
+                .Where(v => !"none".Equals(v))
+                .ToList();
+            if (charGroupTokenizeOnChars.Count > 0)
+            {
+                tokenizeOChars.AddRange(charGroupTokenizeOnChars);
+            }
+
+            builder.AppendLine(",").KeyValue("tokenize_on_chars", tokenizeOChars);
         }
 
         private static void BuildAnalyzers(MappingBuilder builder, List<CustomAnalyzerAttribute> customAnalyzerAttributeList)
