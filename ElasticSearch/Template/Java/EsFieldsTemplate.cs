@@ -88,6 +88,11 @@ namespace ElasticSearch.Template.Java
         {
             foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
             {
+                if(propertyNode.FieldAttribute != null && !propertyNode.FieldAttribute.Index)
+                {
+                    continue;
+                }
+
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
 
@@ -96,20 +101,15 @@ namespace ElasticSearch.Template.Java
             #line hidden
             this.Write("\r\n    /**\r\n     * ");
             
-            #line 39 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 44 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
             
             #line default
             #line hidden
             this.Write("\r\n     */\r\n");
             
-            #line 41 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 46 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
 
-                }
-
-                if(propertyNode.FieldAttribute != null && !propertyNode.FieldAttribute.Index)
-                {
-                    continue;
                 }
 
             

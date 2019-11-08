@@ -31,6 +31,11 @@ public final class <#=this.ClassNode.Name#>Fields {
         {
             foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
             {
+                if(propertyNode.FieldAttribute != null && !propertyNode.FieldAttribute.Index)
+                {
+                    continue;
+                }
+
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
 #>
@@ -39,11 +44,6 @@ public final class <#=this.ClassNode.Name#>Fields {
      * <#=propertyNode.Summary#>
      */
 <#
-                }
-
-                if(propertyNode.FieldAttribute != null && !propertyNode.FieldAttribute.Index)
-                {
-                    continue;
                 }
 #>
     public final static String <#=propertyNode.Name.ToUpperCaseUnderLine()#> = "<#=propertyNode.Name.ToLowerCaseUnderLine()#>";
