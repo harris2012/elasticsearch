@@ -40,6 +40,11 @@ public final class <#=this.ClassNode.Name#>Fields {
      */
 <#
                 }
+
+                if(propertyNode.FieldAttribute != null && !propertyNode.FieldAttribute.Index)
+                {
+                    continue;
+                }
 #>
     public final static String <#=propertyNode.Name.ToUpperCaseUnderLine()#> = "<#=propertyNode.Name.ToLowerCaseUnderLine()#>";
 <#
