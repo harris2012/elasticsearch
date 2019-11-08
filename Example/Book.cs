@@ -60,7 +60,7 @@ namespace Example
         /// <summary>
         /// 只存储，不索引
         /// </summary>
-        [TextField(Index = false)]
+        [TextField(Index = false, DocValues = false)]
         public string NotIndexMe { get; set; }
 
         /// <summary>

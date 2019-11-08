@@ -24,6 +24,12 @@ namespace Infrastructure
         public bool Index { get; set; } = true;
 
         /// <summary>
+        /// 是否需要doc_values
+        /// 默认值是true
+        /// </summary>
+        public bool DocValues { get; set; } = true;
+
+        /// <summary>
         /// 字段类型
         /// </summary>
         public abstract FieldType FieldType { get; }

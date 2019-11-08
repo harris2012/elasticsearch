@@ -340,6 +340,11 @@ namespace ElasticSearch.Manager
                 builder.AppendLine(",").KeyValue("index", false);
             }
 
+            if (!fieldAttribute.DocValues)
+            {
+                builder.AppendLine(",").KeyValue("doc_values", false);
+            }
+
             switch (fieldAttribute.FieldType)
             {
                 case FieldType.Integer:

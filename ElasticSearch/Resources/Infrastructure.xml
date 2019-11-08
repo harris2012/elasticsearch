@@ -146,6 +146,12 @@
             默认值是true
             </summary>
         </member>
+        <member name="P:Infrastructure.FieldAttribute.DocValues">
+            <summary>
+            是否需要doc_values
+            默认值是true
+            </summary>
+        </member>
         <member name="P:Infrastructure.FieldAttribute.FieldType">
             <summary>
             字段类型
