@@ -24,7 +24,7 @@ namespace Infrastructure
         public bool Index { get; set; } = true;
 
         /// <summary>
-        /// 是否需要doc_values
+        /// 是否需要doc_values。用于排序、聚合以及脚本操作
         /// 默认值是true
         /// </summary>
         public bool DocValues { get; set; } = true;
