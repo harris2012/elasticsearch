@@ -8,6 +8,7 @@ namespace Infrastructure
 {
     /// <summary>
     /// double型
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/current/number.html
     /// </summary>
     public sealed class DoubleFieldAttribute : FieldAttribute
     {

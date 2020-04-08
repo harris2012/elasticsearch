@@ -8,6 +8,7 @@ namespace Infrastructure
 {
     /// <summary>
     /// 整型
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/current/number.html
     /// </summary>
     public sealed class IntegerFieldAttribute : FieldAttribute
     {
