@@ -486,6 +486,10 @@ namespace ElasticSearch.Manager
                     return new IntegerFieldAttribute { Name = fieldName };
                 case "System.Int64":
                     return new LongFieldAttribute { Name = fieldName };
+                case "System.Double":
+                    return new DoubleFieldAttribute { Name = fieldName };
+                case "System.Boolean":
+                    return new BooleanFieldAttribute { Name = fieldName };
                 case "System.String":
                     return new KeywordFieldAttribute { Name = fieldName };
                 default:
