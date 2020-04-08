@@ -41,16 +41,16 @@ namespace ElasticSearch
                     typeName = "Integer";
                     break;
                 case "System.Boolean":
-                    typeName = "boolean";
+                    typeName = "Boolean";
                     break;
                 case "System.Void":
                     typeName = "void";
                     break;
                 case "System.Int16":
-                    typeName = "short";
+                    typeName = "Short";
                     break;
                 case "System.Byte":
-                    typeName = "byte";
+                    typeName = "Byte";
                     break;
                 case "System.Int64":
                     typeName = "Long";
@@ -61,10 +61,10 @@ namespace ElasticSearch
                     }
                     break;
                 case "System.Single":
-                    typeName = "float";
+                    typeName = "Float";
                     break;
                 case "System.Double":
-                    typeName = "double";
+                    typeName = "Double";
                     break;
 
                 default:
