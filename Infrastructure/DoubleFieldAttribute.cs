@@ -13,7 +13,7 @@ namespace Infrastructure
     {
         public override FieldType FieldType => FieldType.Double;
 
-        public override string Type => "boolean";
+        public override string Type => "double";
 
         /// <summary>
         /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/null-value.html
