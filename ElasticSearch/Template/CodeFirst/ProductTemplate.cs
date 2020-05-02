@@ -18,7 +18,7 @@ namespace ElasticSearch.Template.CodeFirst
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\ProductTemplate.tt"
+    #line 1 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\ProductTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
     public partial class ProductTemplate : ProductTemplateBase
     {
@@ -31,7 +31,7 @@ namespace ElasticSearch.Template.CodeFirst
             this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Syste" +
                     "m.Text;\r\nusing System.Threading.Tasks;\r\n\r\nnamespace ");
             
-            #line 12 "D:\TheGitlabWorkspace\harris-app\ElasticSearch\ElasticSearch\Template\CodeFirst\ProductTemplate.tt"
+            #line 12 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\CodeFirst\ProductTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.RootNamespace));
             
             #line default

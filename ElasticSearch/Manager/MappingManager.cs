@@ -1,4 +1,6 @@
 ﻿using Infrastructure;
+using Savory.CodeDom.Js;
+using Savory.CodeDom.Js.Engine;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,6 +27,7 @@ namespace ElasticSearch.Manager
 
             var mappingsFolder = Path.Combine(folder, "Mappings");
 
+            JsCodeEngine jsCodeEngine = new JsCodeEngine();
             foreach (var type in types)
             {
                 var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
@@ -33,149 +36,134 @@ namespace ElasticSearch.Manager
                     continue;
                 }
 
-                WriteToFile(Path.Combine(mappingsFolder, $"{type.Name.ToLowerCaseBreakLine()}.json"), BuildMappings(type));
-            }
-        }
+                var dataObject = BuildMappings(type);
 
-        private static string BuildMappings(Type type)
-        {
-            var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
-
-            var customAnalyzerAttributeList = type.GetCustomAttributes<CustomAnalyzerAttribute>(false).ToList();
-
-            Dictionary<string, Action<MappingBuilder, Type>> items = new Dictionary<string, Action<MappingBuilder, Type>>();
-            if (indexAttribute.Aliases != null && indexAttribute.Aliases.Length > 0)
-            {
-                items.Add("aliases", BuildAliases);
-            }
-            if (indexAttribute.NumberOfReplicas > 0 || indexAttribute.NumberOfShards > 0 || (customAnalyzerAttributeList != null && customAnalyzerAttributeList.Count > 0))
-            {
-                items.Add("settings", BuildSettings);
-            }
-            items.Add("mappings", BuildMappings);
-
-            MappingBuilder builder = new MappingBuilder();
-
-            bool first = true;
-            foreach (var item in items)
-            {
-                if (!first)
+                var builder = new StringBuilder();
+                jsCodeEngine.GenerateDataObject(dataObject, new StringWriter(builder), new GenerateOptions
                 {
-                    builder.AppendLine(",");
-                }
+                    TabString = "  "
+                });
 
-                builder.KeyValue(item.Key, type, item.Value);
-                first = false;
-            }
-
-            return builder.Build();
-        }
-
-        private static void BuildAliases(MappingBuilder builder, Type type)
-        {
-            var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
-
-            for (int i = 0; i < indexAttribute.Aliases.Length; i++)
-            {
-                if (i > 0)
-                {
-                    builder.AppendLine(",");
-                }
-                builder.KeyOfObject(indexAttribute.Aliases[i]);
+                WriteToFile(Path.Combine(mappingsFolder, $"{type.Name.ToLowerCaseBreakLine()}.json"), builder.ToString());
             }
         }
 
-        private static void BuildSettings(MappingBuilder builder, Type type)
+        private static string Quote(string text)
+        {
+            return $"\"{text}\"";
+        }
+
+        private static DataObject BuildMappings(Type type)
         {
             var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
-
-            Dictionary<string, object> items = new Dictionary<string, object>();
-            AddNotNegative(items, "number_of_shards", indexAttribute.NumberOfShards);
-            AddNotNegative(items, "number_of_replicas", indexAttribute.NumberOfReplicas);
-            AddNotNegative(items, "mapping.total_fields.limit", indexAttribute.MappingTotalFieldsLimit);
-
-            builder.KeyValue(items);
 
             var customAnalyzerAttributeList = type.GetCustomAttributes<CustomAnalyzerAttribute>(false).ToList();
             var customTokenizerAttributeList = type.GetCustomAttributes<CustomTokenizerAttribute>(false).ToList();
 
-            //为后面的`analyzers`做准备
-            if (items.Count > 0 && (customAnalyzerAttributeList != null && customAnalyzerAttributeList.Count > 0 || customTokenizerAttributeList != null && customTokenizerAttributeList.Count > 0))
+            var dataObject = new DataObject();
+
+            if (indexAttribute.Aliases != null && indexAttribute.Aliases.Length > 0)
             {
-                builder.AppendLine(",");
-            }
-
-            builder.KeyValue("analysis", customAnalyzerAttributeList, customTokenizerAttributeList, BuildAnalysisBody);
-        }
-
-        private static void BuildAnalysisBody(MappingBuilder builder, List<CustomAnalyzerAttribute> customAnalyzerAttributeList, List<CustomTokenizerAttribute> customTokenizerAttributeList)
-        {
-            BuildTokenizers(builder, customTokenizerAttributeList);
-
-            if (customTokenizerAttributeList != null && customTokenizerAttributeList.Count > 0 && customAnalyzerAttributeList != null && customAnalyzerAttributeList.Count > 0)
-            {
-                builder.AppendLine(",");
-            }
-
-            BuildAnalyzers(builder, customAnalyzerAttributeList);
-        }
-
-        private static void BuildTokenizers(MappingBuilder builder, List<CustomTokenizerAttribute> customTokenizerAttributeList)
-        {
-            if (customTokenizerAttributeList == null || customTokenizerAttributeList.Count == 0)
-            {
-                return;
-            }
-            builder.KeyValue("tokenizer", customTokenizerAttributeList, BuildTokenizersBody);
-        }
-
-        private static void BuildTokenizersBody(MappingBuilder builder, List<CustomTokenizerAttribute> customTokenizerAttributeList)
-        {
-            for (int i = 0; i < customTokenizerAttributeList.Count; i++)
-            {
-                if (i > 0)
+                var aliasDataObject = dataObject.AddDataObject(Quote("aliases"));
+                foreach (var alias in indexAttribute.Aliases)
                 {
-                    builder.AppendLine(",");
+                    aliasDataObject.AddDataObject(Quote(alias));
                 }
-                BuildTokenizer(builder, customTokenizerAttributeList[i]);
             }
+
+            var settingsDataObject = BuildSettings(indexAttribute, customTokenizerAttributeList, customAnalyzerAttributeList);
+            if (settingsDataObject != null)
+            {
+                dataObject.AddDataObject("settings", settingsDataObject);
+            }
+
+            var xxxx = BuildMappings2(type);
+            dataObject.AddDataObject("mappings", xxxx);
+
+            return dataObject;
         }
 
-        private static void BuildTokenizer(MappingBuilder builder, CustomTokenizerAttribute customTokenizerAttribute)
+        private static DataObject BuildSettings(IndexAttribute indexAttribute, List<CustomTokenizerAttribute> customTokenizerAttributeList, List<CustomAnalyzerAttribute> customAnalyzerAttributeList)
         {
-            builder.KeyValue(customTokenizerAttribute.Name, customTokenizerAttribute, BuildTokenizerBody);
+            if (indexAttribute.NumberOfReplicas == 0 && indexAttribute.NumberOfShards > 0 && (customAnalyzerAttributeList == null || customAnalyzerAttributeList.Count == 0) && (customTokenizerAttributeList == null || customTokenizerAttributeList.Count == 0))
+            {
+                return null;
+            }
+
+            var settingsDataObject = new DataObject();
+            if (indexAttribute.NumberOfShards > 0)
+            {
+                settingsDataObject.AddDataValue("number_of_shards", indexAttribute.NumberOfShards);
+            }
+            if (indexAttribute.NumberOfReplicas > 0)
+            {
+                settingsDataObject.AddDataValue("number_of_replicas", indexAttribute.NumberOfReplicas);
+            }
+            if (indexAttribute.MappingTotalFieldsLimit > 0)
+            {
+                settingsDataObject.AddDataValue("mapping.total_fields.limit", indexAttribute.MappingTotalFieldsLimit);
+            }
+
+            var analysisDataObject = settingsDataObject.AddDataObject("analysis");
+
+            if (customTokenizerAttributeList != null && customTokenizerAttributeList.Count > 0)
+            {
+                var tokenizerDataObject = analysisDataObject.AddDataObject("tokenizer");
+                foreach (var customTokenizerAttribute in customTokenizerAttributeList)
+                {
+                    var cc = BuildTokenizerBody(customTokenizerAttribute);
+                    tokenizerDataObject.AddDataObject(customTokenizerAttribute.Name, cc);
+                }
+            }
+
+            if (customAnalyzerAttributeList != null && customAnalyzerAttributeList.Count > 0)
+            {
+                var analyzerDataObject = analysisDataObject.AddDataObject("analyzer");
+                foreach (var customAnalyzerAttribute in customAnalyzerAttributeList)
+                {
+                    var cc = BuildAnalyzerProperties(customAnalyzerAttribute);
+                    analyzerDataObject.AddDataObject(customAnalyzerAttribute.Name, cc);
+                }
+            }
+
+
+            return settingsDataObject;
         }
 
-        private static void BuildTokenizerBody(MappingBuilder builder, CustomTokenizerAttribute customTokenizerAttribute)
+        private static DataObject BuildTokenizerBody(CustomTokenizerAttribute customTokenizerAttribute)
         {
-            builder.KeyValue("type", customTokenizerAttribute.Type);
+            DataObject dataObject = new DataObject();
+
+            dataObject.AddDataValue("type", customTokenizerAttribute.Type);
 
             if (customTokenizerAttribute is AbstractNGramTokenizerAttribute)
             {
-                BuildNGramTokenizer(builder, customTokenizerAttribute as AbstractNGramTokenizerAttribute);
+                BuildNGramTokenizer(dataObject, customTokenizerAttribute as AbstractNGramTokenizerAttribute);
             }
 
             if (customTokenizerAttribute is PatternTokenizerAttribute)
             {
-                BuildPatternTokenier(builder, customTokenizerAttribute as PatternTokenizerAttribute);
+                BuildPatternTokenier(dataObject, customTokenizerAttribute as PatternTokenizerAttribute);
             }
 
             if (customTokenizerAttribute is CharGroupTokenizerAttribute)
             {
-                BuildCharGroupTokenizer(builder, customTokenizerAttribute as CharGroupTokenizerAttribute);
+                BuildCharGroupTokenizer(dataObject, customTokenizerAttribute as CharGroupTokenizerAttribute);
             }
+
+            return dataObject;
         }
 
-        private static void BuildNGramTokenizer(MappingBuilder builder, AbstractNGramTokenizerAttribute abstractNGramTokenizerAttribute)
+        private static void BuildNGramTokenizer(DataObject dataObject, AbstractNGramTokenizerAttribute abstractNGramTokenizerAttribute)
         {
             if (abstractNGramTokenizerAttribute.MinGram > 0)
             {
-                builder.AppendLine(",").KeyValue("min_gram", abstractNGramTokenizerAttribute.MinGram);
+                dataObject.AddDataValue("min_gram", abstractNGramTokenizerAttribute.MinGram);
             }
 
             if (abstractNGramTokenizerAttribute.MaxGram > 0)
             {
-                builder.AppendLine(",").KeyValue("max_gram", abstractNGramTokenizerAttribute.MaxGram);
+                dataObject.AddDataValue("max_gram", abstractNGramTokenizerAttribute.MaxGram);
             }
 
             var tokenChars = abstractNGramTokenizerAttribute.TokenChars.ToString()
@@ -185,19 +173,19 @@ namespace ElasticSearch.Manager
                 .ToList();
             if (tokenChars.Count > 0)
             {
-                builder.AppendLine(",").KeyValue("token_chars", tokenChars);
+                dataObject.AddDataArray("token_chars");
             }
         }
 
-        private static void BuildPatternTokenier(MappingBuilder builder, PatternTokenizerAttribute patternTokenizerAttribute)
+        private static void BuildPatternTokenier(DataObject dataObject, PatternTokenizerAttribute patternTokenizerAttribute)
         {
             if (!string.IsNullOrEmpty(patternTokenizerAttribute.Pattern))
             {
-                builder.AppendLine(",").KeyValue("pattern", patternTokenizerAttribute.Pattern);
+                dataObject.AddDataValue("pattern", patternTokenizerAttribute.Pattern);
             }
         }
 
-        private static void BuildCharGroupTokenizer(MappingBuilder builder, CharGroupTokenizerAttribute charGroupTokenizerAttribute)
+        private static void BuildCharGroupTokenizer(DataObject dataObject, CharGroupTokenizerAttribute charGroupTokenizerAttribute)
         {
             List<string> tokenizeOChars = new List<string>();
 
@@ -216,38 +204,18 @@ namespace ElasticSearch.Manager
                 tokenizeOChars.AddRange(charGroupTokenizeOnChars);
             }
 
-            builder.AppendLine(",").KeyValue("tokenize_on_chars", tokenizeOChars);
-        }
-
-        private static void BuildAnalyzers(MappingBuilder builder, List<CustomAnalyzerAttribute> customAnalyzerAttributeList)
-        {
-            if (customAnalyzerAttributeList == null || customAnalyzerAttributeList.Count == 0)
+            var array = dataObject.AddDataArray("tokenize_on_chars");
+            foreach (var item in tokenizeOChars)
             {
-                return;
-            }
-            builder.KeyValue("analyzer", customAnalyzerAttributeList, BuildAnalyzersBody);
-        }
-
-        private static void BuildAnalyzersBody(MappingBuilder builder, List<CustomAnalyzerAttribute> customAnalyzerAttributeList)
-        {
-            for (int i = 0; i < customAnalyzerAttributeList.Count; i++)
-            {
-                if (i > 0)
-                {
-                    builder.AppendLine(",");
-                }
-                builder.KeyValue(customAnalyzerAttributeList[i].Name, customAnalyzerAttributeList[i], BuildAnalyzerBody);
+                array.AddDataValue(item);
             }
         }
 
-        private static void BuildAnalyzerBody(MappingBuilder builder, CustomAnalyzerAttribute customAnalyzerAttribute)
+        private static DataObject BuildAnalyzerProperties(CustomAnalyzerAttribute customAnalyzerAttribute)
         {
-            BuildAnalyzerProperties(builder, customAnalyzerAttribute);
-        }
+            DataObject dataObject = new DataObject();
 
-        private static void BuildAnalyzerProperties(MappingBuilder builder, CustomAnalyzerAttribute customAnalyzerAttribute)
-        {
-            builder.KeyValue("tokenizer", customAnalyzerAttribute.Tokenizer);
+            dataObject.AddDataValue("tokenizer", customAnalyzerAttribute.Tokenizer);
 
             {
                 List<string> tokenFilters = new List<string>();
@@ -261,32 +229,33 @@ namespace ElasticSearch.Manager
 
                 if (tokenFilters.Count > 0)
                 {
-                    builder.AppendLine(",");
-                    builder.KeyValue("filter", tokenFilters);
+                    var xx = dataObject.AddDataArray("filter");
+                    foreach (var item in tokenFilters)
+                    {
+                        xx.AddDataValue(item);
+                    }
                 }
             }
+
+            return dataObject;
         }
 
-        private static void AddNotNegative(Dictionary<string, object> items, string key, int value)
-        {
-            if (value >= 0)
-            {
-                items.Add(key, value);
-            }
-        }
-
-        private static void BuildMappings(MappingBuilder builder, Type type)
+        private static DataObject BuildMappings2(Type type)
         {
             var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
             if (indexAttribute == null)
             {
-                return;
+                return null;
             }
 
-            builder.KeyValue(indexAttribute.TypeName ?? "_doc", type, BuildDoc);
+            DataObject dataObject = new DataObject();
+            var _doc = dataObject.AddDataObject(indexAttribute.TypeName ?? "_doc");
+            BuildDoc(_doc, type);
+
+            return dataObject;
         }
 
-        private static void BuildDoc(MappingBuilder builder, Type type)
+        private static void BuildDoc(DataObject _doc, Type type)
         {
             var typeAttribute = type.GetCustomAttribute<IndexAttribute>(false);
             if (typeAttribute == null)
@@ -297,20 +266,22 @@ namespace ElasticSearch.Manager
             switch (typeAttribute.Dynamic)
             {
                 case Dynamic.False:
-                    builder.KeyValue("dynamic", false).AppendLine(",");
+                    _doc.AddDataValue("dynamic", false);
                     break;
                 case Dynamic.Strict:
-                    builder.KeyValue("dynamic", "strict").AppendLine(",");
+                    _doc.AddDataValue("dynamic", "strict");
                     break;
                 case Dynamic.True:
                 default:
                     break;
             }
 
-            builder.KeyValue("properties", type, BuildProperties);
+            var _properties = _doc.AddDataObject("properties");
+            BuildProperties(_properties, type);
+
         }
 
-        private static void BuildProperties(MappingBuilder builder, Type type)
+        private static void BuildProperties(DataObject _properties, Type type)
         {
             var fieldAttributes = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Select(field => GetFieldAttribute(field, field.Name.ToLowerCaseUnderLine()))
@@ -318,31 +289,28 @@ namespace ElasticSearch.Manager
                 .OrderBy(v => v.Name)
                 .ToList();
 
-            for (int i = 0; i < fieldAttributes.Count; i++)
+            foreach (var item in fieldAttributes)
             {
-                if (i > 0)
-                {
-                    builder.AppendLine(",");
-                }
-                builder.KeyValue(fieldAttributes[i].Name.ToLowerCaseUnderLine(), fieldAttributes[i], BuildProperty);
+                var mm = _properties.AddDataObject(item.Name.ToLowerCaseUnderLine());
+                BuildProperty(mm, item);
             }
         }
 
-        private static void BuildProperty(MappingBuilder builder, FieldAttribute fieldAttribute)
+        private static void BuildProperty(DataObject mm, FieldAttribute fieldAttribute)
         {
             if (!string.IsNullOrEmpty(fieldAttribute.Type))
             {
-                builder.KeyValue("type", fieldAttribute.Type);
+                mm.AddDataValue("type", fieldAttribute.Type);
             }
 
             if (!fieldAttribute.Index)
             {
-                builder.AppendLine(",").KeyValue("index", false);
+                mm.AddDataValue("index", false);
             }
 
             if (!fieldAttribute.DocValues)
             {
-                builder.AppendLine(",").KeyValue("doc_values", false);
+                mm.AddDataValue("doc_values", false);
             }
 
             switch (fieldAttribute.FieldType)
@@ -352,7 +320,7 @@ namespace ElasticSearch.Manager
                         IntegerFieldAttribute integerFieldAttribute = fieldAttribute as IntegerFieldAttribute;
                         if (integerFieldAttribute.NullValue.HasValue)
                         {
-                            builder.AppendLine(",").KeyValue("null_value", integerFieldAttribute.NullValue.Value);
+                            mm.AddDataValue("null_value", integerFieldAttribute.NullValue.Value);
                         }
                     }
                     break;
@@ -361,7 +329,7 @@ namespace ElasticSearch.Manager
                         LongFieldAttribute longFieldAttribute = fieldAttribute as LongFieldAttribute;
                         if (longFieldAttribute.NullValue.HasValue)
                         {
-                            builder.AppendLine(",").KeyValue("null_value", longFieldAttribute.NullValue.Value);
+                            mm.AddDataValue("null_value", longFieldAttribute.NullValue.Value);
                         }
                     }
                     break;
@@ -369,11 +337,11 @@ namespace ElasticSearch.Manager
                     {
                         KeywordFieldAttribute keywordFieldAttribute = fieldAttribute as KeywordFieldAttribute;
 
-                        builder.AppendLine(",").KeyValue("ignore_above", (fieldAttribute as KeywordFieldAttribute).IgnoreAbove);
+                        mm.AddDataValue("ignore_above", (fieldAttribute as KeywordFieldAttribute).IgnoreAbove);
 
                         if (keywordFieldAttribute.NullValue != null)
                         {
-                            builder.AppendLine(",").KeyValue("null_value", keywordFieldAttribute.NullValue);
+                            mm.AddDataValue("null_value", keywordFieldAttribute.NullValue);
                         }
                     }
                     break;
@@ -383,15 +351,17 @@ namespace ElasticSearch.Manager
 
                         if (!string.IsNullOrEmpty(textFieldAttribute.DefaultAnalyzer))
                         {
-                            builder.AppendLine(",").KeyValue("analyzer", textFieldAttribute.DefaultAnalyzer);
+                            mm.AddDataValue("analyzer", textFieldAttribute.DefaultAnalyzer);
                         }
 
                         if (textFieldAttribute.NullValue != null)
                         {
-                            builder.AppendLine(",").KeyValue("null_value", textFieldAttribute.NullValue);
+                            mm.AddDataValue("null_value", textFieldAttribute.NullValue);
                         }
 
-                        builder.AppendLine(",").KeyValue("fields", textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove, BuildTextFields);
+                        mm.AddDataValue("fields");
+
+                        //builder.AppendLine(",").KeyValue("fields", textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove, BuildTextFields);
                     }
                     break;
                 default:
@@ -399,15 +369,13 @@ namespace ElasticSearch.Manager
             }
         }
 
-        private static void BuildTextFields(MappingBuilder builder, TextFieldAttribute textFieldAttribute, int keywordIgnoreAbove)
+        private static void BuildTextFields(DataObject dataObject, TextFieldAttribute textFieldAttribute, int keywordIgnoreAbove)
         {
             //keyword
             {
-                Dictionary<string, object> items = new Dictionary<string, object>();
-                items.Add("type", "keyword");
-                items.Add("ignore_above", keywordIgnoreAbove);
-
-                builder.KeyValue("keyword", items);
+                var keyword = dataObject.AddDataObject("keyword");
+                keyword.AddDataValue("type", "keyword");
+                keyword.AddDataValue("ignore_above", keywordIgnoreAbove);
             }
 
             //analyzer
@@ -439,7 +407,7 @@ namespace ElasticSearch.Manager
                     analyzer_items.Add("type", "text");
                     analyzer_items.Add("analyzer", analyzer);
 
-                    builder.AppendLine(",").KeyValue(analyzer, analyzer_items);
+                    //builder.AppendLine(",").KeyValue(analyzer, analyzer_items);
                 }
             }
         }
