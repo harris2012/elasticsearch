@@ -56,7 +56,7 @@ namespace Savory.CodeDom.Js.Engine
             while (moveNext)
             {
                 var item = enumerator.Current;
-                codeWriter.Write(options.IndentString).Write(item.Key).Write(": ");
+                codeWriter.Write(options.IndentString).Write($"\"{item.Key}\"").Write(": ");
                 if (item.Value == null)
                 {
                     codeWriter.Write("null");
@@ -87,7 +87,7 @@ namespace Savory.CodeDom.Js.Engine
             {
                 var dataArrayItem = enumerator.Current;
 
-                codeWriter.Write(options.IndentString).Write($"{dataArrayItem.Key}: ");
+                codeWriter.Write(options.IndentString).Write($"\"{dataArrayItem.Key}\": ");
 
                 BuildDataArray(dataArrayItem.Value, codeWriter, options);
 
@@ -172,7 +172,7 @@ namespace Savory.CodeDom.Js.Engine
             {
                 var item = enumerator.Current;
 
-                codeWriter.Write(options.IndentString).Write($"{item.Key}: ");
+                codeWriter.Write(options.IndentString).Write($"\"{item.Key}\": ");
 
                 GenerateDataObject(item.Value, codeWriter, options, false);
 

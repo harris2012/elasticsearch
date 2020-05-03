@@ -48,11 +48,6 @@ namespace ElasticSearch.Manager
             }
         }
 
-        private static string Quote(string text)
-        {
-            return $"\"{text}\"";
-        }
-
         private static DataObject BuildMappings(Type type)
         {
             var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
@@ -64,10 +59,10 @@ namespace ElasticSearch.Manager
 
             if (indexAttribute.Aliases != null && indexAttribute.Aliases.Length > 0)
             {
-                var aliasDataObject = dataObject.AddDataObject(Quote("aliases"));
+                var aliasDataObject = dataObject.AddDataObject("aliases");
                 foreach (var alias in indexAttribute.Aliases)
                 {
-                    aliasDataObject.AddDataObject(Quote(alias));
+                    aliasDataObject.AddDataObject(alias);
                 }
             }
 
@@ -171,9 +166,14 @@ namespace ElasticSearch.Manager
                 .Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries)
                 .Where(v => !"none".Equals(v))
                 .ToList();
+
             if (tokenChars.Count > 0)
             {
-                dataObject.AddDataArray("token_chars");
+                var tokenCharsArray = dataObject.AddDataArray("token_chars");
+                foreach (var item in tokenChars)
+                {
+                    tokenCharsArray.AddDataValue(item);
+                }
             }
         }
 
@@ -359,7 +359,7 @@ namespace ElasticSearch.Manager
                             mm.AddDataValue("null_value", textFieldAttribute.NullValue);
                         }
 
-                        mm.AddDataValue("fields");
+                        mm.AddDataObject("fields", BuildTextFields(textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove));
 
                         //builder.AppendLine(",").KeyValue("fields", textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove, BuildTextFields);
                     }
@@ -369,8 +369,10 @@ namespace ElasticSearch.Manager
             }
         }
 
-        private static void BuildTextFields(DataObject dataObject, TextFieldAttribute textFieldAttribute, int keywordIgnoreAbove)
+        private static DataObject BuildTextFields(TextFieldAttribute textFieldAttribute, int keywordIgnoreAbove)
         {
+            DataObject dataObject = new DataObject();
+
             //keyword
             {
                 var keyword = dataObject.AddDataObject("keyword");
@@ -403,28 +405,21 @@ namespace ElasticSearch.Manager
                     {
                         continue;
                     }
-                    Dictionary<string, object> analyzer_items = new Dictionary<string, object>();
-                    analyzer_items.Add("type", "text");
-                    analyzer_items.Add("analyzer", analyzer);
+
+                    var mmm = dataObject.AddDataObject(analyzer);
+                    mmm.AddDataValue("type", "text");
+                    mmm.AddDataValue("analyzer", analyzer);
+
 
                     //builder.AppendLine(",").KeyValue(analyzer, analyzer_items);
                 }
             }
+
+            return dataObject;
         }
 
         private static FieldAttribute GetFieldAttribute(PropertyInfo field, string fieldName)
         {
-            //处理复杂类型
-            //ComplexFieldAttribute complexFieldAttribute = field.GetCustomAttribute<ComplexFieldAttribute>(false);
-            //if (complexFieldAttribute != null)
-            //{
-            //    if (complexFieldAttribute.Name == null)
-            //    {
-            //        complexFieldAttribute.Name = fieldName;
-            //    }
-            //    complexFieldAttribute.ComplexType = field.PropertyType;
-            //    return complexFieldAttribute;
-            //}
 
             //处理简单类型
             FieldAttribute fieldAttribute = field.GetCustomAttribute<FieldAttribute>(false);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Savory.CodeDom.Js
 {
-    public class DataValue: DataValueOrObject
+    public class DataValue : DataValueOrObject
     {
         public string Value { get; set; }
         public static implicit operator DataValue(bool value)
@@ -33,7 +33,7 @@ namespace Savory.CodeDom.Js
         public static implicit operator DataValue(string value)
         {
             var stringValue = new DataValue();
-            stringValue.Value = value;
+            stringValue.Value = $"\"{value}\"";
             return stringValue;
         }
     }
