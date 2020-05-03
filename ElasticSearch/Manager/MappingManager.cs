@@ -281,14 +281,20 @@ namespace ElasticSearch.Manager
                     break;
             }
 
-            var _properties = _doc.AddDataObject("properties");
-            BuildProperties(_properties, type);
-
+            var propertyMap = BuildProperties(type);
+            if (propertyMap != null && propertyMap.Count > 0)
+            {
+                var _properties = _doc.AddDataObject("properties");
+                foreach (var item in propertyMap)
+                {
+                    _properties.AddDataObject(item.Key, item.Value);
+                }
+            }
 
             return dataObject;
         }
 
-        private static void BuildProperties(DataObject _properties, Type type)
+        private static Dictionary<string, DataObject> BuildProperties(Type type)
         {
             var fieldAttributes = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Select(field => GetFieldAttribute(field, field.Name.ToLowerCaseUnderLine()))
@@ -296,28 +302,33 @@ namespace ElasticSearch.Manager
                 .OrderBy(v => v.Name)
                 .ToList();
 
+            Dictionary<string, DataObject> returnValue = new Dictionary<string, DataObject>();
+
             foreach (var item in fieldAttributes)
             {
-                var mm = _properties.AddDataObject(item.Name.ToLowerCaseUnderLine());
-                BuildProperty(mm, item);
+                returnValue.Add(item.Name.ToLowerCaseUnderLine(), BuildProperty(item));
             }
+
+            return returnValue;
         }
 
-        private static void BuildProperty(DataObject mm, FieldAttribute fieldAttribute)
+        private static DataObject BuildProperty(FieldAttribute fieldAttribute)
         {
+            DataObject dataObject = new DataObject();
+
             if (!string.IsNullOrEmpty(fieldAttribute.Type))
             {
-                mm.AddDataValue("type", fieldAttribute.Type);
+                dataObject.AddDataValue("type", fieldAttribute.Type);
             }
 
             if (!fieldAttribute.Index)
             {
-                mm.AddDataValue("index", false);
+                dataObject.AddDataValue("index", false);
             }
 
             if (!fieldAttribute.DocValues)
             {
-                mm.AddDataValue("doc_values", false);
+                dataObject.AddDataValue("doc_values", false);
             }
 
             switch (fieldAttribute.FieldType)
@@ -327,7 +338,7 @@ namespace ElasticSearch.Manager
                         IntegerFieldAttribute integerFieldAttribute = fieldAttribute as IntegerFieldAttribute;
                         if (integerFieldAttribute.NullValue.HasValue)
                         {
-                            mm.AddDataValue("null_value", integerFieldAttribute.NullValue.Value);
+                            dataObject.AddDataValue("null_value", integerFieldAttribute.NullValue.Value);
                         }
                     }
                     break;
@@ -336,7 +347,7 @@ namespace ElasticSearch.Manager
                         LongFieldAttribute longFieldAttribute = fieldAttribute as LongFieldAttribute;
                         if (longFieldAttribute.NullValue.HasValue)
                         {
-                            mm.AddDataValue("null_value", longFieldAttribute.NullValue.Value);
+                            dataObject.AddDataValue("null_value", longFieldAttribute.NullValue.Value);
                         }
                     }
                     break;
@@ -344,11 +355,11 @@ namespace ElasticSearch.Manager
                     {
                         KeywordFieldAttribute keywordFieldAttribute = fieldAttribute as KeywordFieldAttribute;
 
-                        mm.AddDataValue("ignore_above", (fieldAttribute as KeywordFieldAttribute).IgnoreAbove);
+                        dataObject.AddDataValue("ignore_above", (fieldAttribute as KeywordFieldAttribute).IgnoreAbove);
 
                         if (keywordFieldAttribute.NullValue != null)
                         {
-                            mm.AddDataValue("null_value", keywordFieldAttribute.NullValue);
+                            dataObject.AddDataValue("null_value", keywordFieldAttribute.NullValue);
                         }
                     }
                     break;
@@ -358,22 +369,22 @@ namespace ElasticSearch.Manager
 
                         if (!string.IsNullOrEmpty(textFieldAttribute.DefaultAnalyzer))
                         {
-                            mm.AddDataValue("analyzer", textFieldAttribute.DefaultAnalyzer);
+                            dataObject.AddDataValue("analyzer", textFieldAttribute.DefaultAnalyzer);
                         }
 
                         if (textFieldAttribute.NullValue != null)
                         {
-                            mm.AddDataValue("null_value", textFieldAttribute.NullValue);
+                            dataObject.AddDataValue("null_value", textFieldAttribute.NullValue);
                         }
 
-                        mm.AddDataObject("fields", BuildTextFields(textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove));
-
-                        //builder.AppendLine(",").KeyValue("fields", textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove, BuildTextFields);
+                        dataObject.AddDataObject("fields", BuildTextFields(textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove));
                     }
                     break;
                 default:
                     break;
             }
+
+            return dataObject;
         }
 
         private static DataObject BuildTextFields(TextFieldAttribute textFieldAttribute, int keywordIgnoreAbove)
