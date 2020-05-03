@@ -36,19 +36,19 @@ namespace ElasticSearch.Manager
                     continue;
                 }
 
-                var dataObject = BuildMappings(type);
+                var dataObject = BuildMappingsFile(type);
 
-                var builder = new StringBuilder();
-                jsCodeEngine.GenerateDataObject(dataObject, new StringWriter(builder), new GenerateOptions
+                var stringBuilder = new StringBuilder();
+                jsCodeEngine.GenerateDataObject(dataObject, new StringWriter(stringBuilder), new GenerateOptions
                 {
                     TabString = "  "
                 });
 
-                WriteToFile(Path.Combine(mappingsFolder, $"{type.Name.ToLowerCaseBreakLine()}.json"), builder.ToString());
+                WriteToFile(Path.Combine(mappingsFolder, $"{type.Name.ToLowerCaseBreakLine()}.json"), stringBuilder.ToString());
             }
         }
 
-        private static DataObject BuildMappings(Type type)
+        private static DataObject BuildMappingsFile(Type type)
         {
             var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
 
@@ -57,6 +57,7 @@ namespace ElasticSearch.Manager
 
             var dataObject = new DataObject();
 
+            //alias
             if (indexAttribute.Aliases != null && indexAttribute.Aliases.Length > 0)
             {
                 var aliasDataObject = dataObject.AddDataObject("aliases");
@@ -66,14 +67,19 @@ namespace ElasticSearch.Manager
                 }
             }
 
+            //settings
             var settingsDataObject = BuildSettings(indexAttribute, customTokenizerAttributeList, customAnalyzerAttributeList);
             if (settingsDataObject != null)
             {
                 dataObject.AddDataObject("settings", settingsDataObject);
             }
 
-            var xxxx = BuildMappings2(type);
-            dataObject.AddDataObject("mappings", xxxx);
+            //mappings
+            var mappingsDataObject = BuildMappings(type);
+            if (mappingsDataObject != null)
+            {
+                dataObject.AddDataObject("mappings", mappingsDataObject);
+            }
 
             return dataObject;
         }
@@ -127,30 +133,29 @@ namespace ElasticSearch.Manager
 
         private static DataObject BuildTokenizerBody(CustomTokenizerAttribute customTokenizerAttribute)
         {
-            DataObject dataObject = new DataObject();
-
-            dataObject.AddDataValue("type", customTokenizerAttribute.Type);
-
             if (customTokenizerAttribute is AbstractNGramTokenizerAttribute)
             {
-                BuildNGramTokenizer(dataObject, customTokenizerAttribute as AbstractNGramTokenizerAttribute);
+                return BuildNGramTokenizer(customTokenizerAttribute as AbstractNGramTokenizerAttribute);
             }
 
             if (customTokenizerAttribute is PatternTokenizerAttribute)
             {
-                BuildPatternTokenier(dataObject, customTokenizerAttribute as PatternTokenizerAttribute);
+                return BuildPatternTokenier(customTokenizerAttribute as PatternTokenizerAttribute);
             }
 
             if (customTokenizerAttribute is CharGroupTokenizerAttribute)
             {
-                BuildCharGroupTokenizer(dataObject, customTokenizerAttribute as CharGroupTokenizerAttribute);
+                return BuildCharGroupTokenizer(customTokenizerAttribute as CharGroupTokenizerAttribute);
             }
 
-            return dataObject;
+            return null;
         }
 
-        private static void BuildNGramTokenizer(DataObject dataObject, AbstractNGramTokenizerAttribute abstractNGramTokenizerAttribute)
+        private static DataObject BuildNGramTokenizer(AbstractNGramTokenizerAttribute abstractNGramTokenizerAttribute)
         {
+            DataObject dataObject = new DataObject();
+            dataObject.AddDataValue("type", abstractNGramTokenizerAttribute.Type);
+
             if (abstractNGramTokenizerAttribute.MinGram > 0)
             {
                 dataObject.AddDataValue("min_gram", abstractNGramTokenizerAttribute.MinGram);
@@ -175,18 +180,28 @@ namespace ElasticSearch.Manager
                     tokenCharsArray.AddDataValue(item);
                 }
             }
+
+            return dataObject;
         }
 
-        private static void BuildPatternTokenier(DataObject dataObject, PatternTokenizerAttribute patternTokenizerAttribute)
+        private static DataObject BuildPatternTokenier(PatternTokenizerAttribute patternTokenizerAttribute)
         {
+            DataObject dataObject = new DataObject();
+            dataObject.AddDataValue("type", patternTokenizerAttribute.Type);
+
             if (!string.IsNullOrEmpty(patternTokenizerAttribute.Pattern))
             {
                 dataObject.AddDataValue("pattern", patternTokenizerAttribute.Pattern);
             }
+
+            return dataObject;
         }
 
-        private static void BuildCharGroupTokenizer(DataObject dataObject, CharGroupTokenizerAttribute charGroupTokenizerAttribute)
+        private static DataObject BuildCharGroupTokenizer(CharGroupTokenizerAttribute charGroupTokenizerAttribute)
         {
+            DataObject dataObject = new DataObject();
+            dataObject.AddDataValue("type", charGroupTokenizerAttribute.Type);
+
             List<string> tokenizeOChars = new List<string>();
 
             if (charGroupTokenizerAttribute.Chars != null && charGroupTokenizerAttribute.Chars.Length > 0)
@@ -209,6 +224,8 @@ namespace ElasticSearch.Manager
             {
                 array.AddDataValue(item);
             }
+
+            return dataObject;
         }
 
         private static DataObject BuildAnalyzerProperties(CustomAnalyzerAttribute customAnalyzerAttribute)
@@ -240,7 +257,7 @@ namespace ElasticSearch.Manager
             return dataObject;
         }
 
-        private static DataObject BuildMappings2(Type type)
+        private static DataObject BuildMappings(Type type)
         {
             var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
             if (indexAttribute == null)
@@ -250,20 +267,8 @@ namespace ElasticSearch.Manager
 
             DataObject dataObject = new DataObject();
             var _doc = dataObject.AddDataObject(indexAttribute.TypeName ?? "_doc");
-            BuildDoc(_doc, type);
 
-            return dataObject;
-        }
-
-        private static void BuildDoc(DataObject _doc, Type type)
-        {
-            var typeAttribute = type.GetCustomAttribute<IndexAttribute>(false);
-            if (typeAttribute == null)
-            {
-                return;
-            }
-
-            switch (typeAttribute.Dynamic)
+            switch (indexAttribute.Dynamic)
             {
                 case Dynamic.False:
                     _doc.AddDataValue("dynamic", false);
@@ -279,6 +284,8 @@ namespace ElasticSearch.Manager
             var _properties = _doc.AddDataObject("properties");
             BuildProperties(_properties, type);
 
+
+            return dataObject;
         }
 
         private static void BuildProperties(DataObject _properties, Type type)
