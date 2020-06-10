@@ -479,6 +479,26 @@ namespace ElasticSearch.Manager
         /// <returns></returns>
         private static FieldAttribute PropertyTypeAsFieldAttribute(Type type, string fieldName)
         {
+            var fieldAttribute = BasicPropertyTypeAsFieldAttribute(type, fieldName);
+            if (fieldAttribute != null)
+            {
+                return fieldAttribute;
+            }
+
+            if (type.IsGenericType)
+            {
+                var genericType = type.GetGenericTypeDefinition();
+                if (genericType.FullName == "System.Collections.Generic.List`1")
+                {
+                    return BasicPropertyTypeAsFieldAttribute(type.GenericTypeArguments[0], fieldName);
+                }
+            }
+
+            return null;
+        }
+
+        private static FieldAttribute BasicPropertyTypeAsFieldAttribute(Type type, string fieldName)
+        {
             switch (type.ToString())
             {
                 case "System.Int32":
@@ -492,10 +512,8 @@ namespace ElasticSearch.Manager
                 case "System.String":
                     return new KeywordFieldAttribute { Name = fieldName };
                 default:
-                    break;
+                    return null;
             }
-
-            return null;
         }
     }
 }
