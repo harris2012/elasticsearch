@@ -51,26 +51,26 @@ namespace ElasticSearch.Template.CodeFirst
                     "{\r\n        /// <summary>\r\n        /// 推断 int\r\n        /// </summary>\r\n        pu" +
                     "blic int AssumeInt { get; set; }\r\n\r\n        /// <summary>\r\n        /// 推断 long\r\n" +
                     "        /// </summary>\r\n        public long AssumeLong { get; set; }\r\n\r\n        " +
-                    "/// <summary>\r\n        /// 推断 keyword\r\n        /// </summary>\r\n        public st" +
-                    "ring AssumeKeyword { get; set; }\r\n\r\n        /// <summary>\r\n        /// 使用 intege" +
-                    "r\r\n        /// </summary>\r\n        [IntegerField(123)]\r\n        public int UseIn" +
-                    "teger { get; set; }\r\n\r\n        /// <summary>\r\n        /// 使用 long\r\n        /// <" +
-                    "/summary>\r\n        [LongField]\r\n        public long UseLong { get; set; }\r\n\r\n   " +
-                    "     /// <summary>\r\n        /// 使用 keyword\r\n        /// </summary>\r\n        [Key" +
-                    "wordField(IgnoreAbove = 128)]\r\n        public string UseKeyword { get; set; }\r\n\r" +
-                    "\n        /// <summary>\r\n        /// 使用 text\r\n        /// </summary>\r\n        [Te" +
-                    "xtField]\r\n        public string UseText { get; set; }\r\n\r\n        /// <summary>\r\n" +
-                    "        /// 只存储，不索引\r\n        /// </summary>\r\n        [TextField(Index = false)]\r" +
-                    "\n        public string NotIndexMe { get; set; }\r\n\r\n        /// <summary>\r\n      " +
-                    "  /// 只存储，不索引\r\n        /// </summary>\r\n        [TextField(NullValue = \"NULL\")]\r\n" +
-                    "        public string WithNullValue { get; set; }\r\n\r\n        /// <summary>\r\n    " +
-                    "    /// 使用分词器\r\n        /// </summary>\r\n        [TextField(\r\n            IKAnalyz" +
-                    "er = IKAnalyzer.IK_SMART | IKAnalyzer.IK_MAX_WORD,\r\n            BuiltInAnalyzer " +
-                    "= BuiltInAnalyzer.SIMPLE | BuiltInAnalyzer.WHITESPACE,\r\n            CustomAnalyz" +
-                    "er = new string[] { \"ngram_1_1\" })]\r\n        public string UseAnalyzer { get; se" +
-                    "t; }\r\n\r\n        /// <summary>\r\n        /// 带默认分析器\r\n        /// </summary>\r\n     " +
-                    "   [TextField(IKAnalyzer.IK_SMART)]\r\n        public string WithDefaultAnalyzer {" +
-                    " get; set; }\r\n    }\r\n}\r\n");
+                    "/// <summary>\r\n        /// 推断 text\r\n        /// </summary>\r\n        public strin" +
+                    "g AssumeText { get; set; }\r\n\r\n        /// <summary>\r\n        /// 使用 integer\r\n   " +
+                    "     /// </summary>\r\n        [IntegerField(123)]\r\n        public int UseInteger " +
+                    "{ get; set; }\r\n\r\n        /// <summary>\r\n        /// 使用 long\r\n        /// </summa" +
+                    "ry>\r\n        [LongField]\r\n        public long UseLong { get; set; }\r\n\r\n        /" +
+                    "// <summary>\r\n        /// 使用 keyword\r\n        /// </summary>\r\n        [KeywordFi" +
+                    "eld(IgnoreAbove = 128)]\r\n        public string UseKeyword { get; set; }\r\n\r\n     " +
+                    "   /// <summary>\r\n        /// 使用 text\r\n        /// </summary>\r\n        [TextFiel" +
+                    "d]\r\n        public string UseText { get; set; }\r\n\r\n        /// <summary>\r\n      " +
+                    "  /// 只存储，不索引\r\n        /// </summary>\r\n        [TextField(Index = false)]\r\n     " +
+                    "   public string NotIndexMe { get; set; }\r\n\r\n        /// <summary>\r\n        /// " +
+                    "只存储，不索引\r\n        /// </summary>\r\n        [TextField(NullValue = \"NULL\")]\r\n      " +
+                    "  public string WithNullValue { get; set; }\r\n\r\n        /// <summary>\r\n        //" +
+                    "/ 使用分词器\r\n        /// </summary>\r\n        [TextField(\r\n            IKAnalyzer = I" +
+                    "KAnalyzer.IK_SMART | IKAnalyzer.IK_MAX_WORD,\r\n            BuiltInAnalyzer = Buil" +
+                    "tInAnalyzer.SIMPLE | BuiltInAnalyzer.WHITESPACE,\r\n            CustomAnalyzer = n" +
+                    "ew string[] { \"ngram_1_1\" })]\r\n        public string UseAnalyzer { get; set; }\r\n" +
+                    "\r\n        /// <summary>\r\n        /// 带默认分析器\r\n        /// </summary>\r\n        [Te" +
+                    "xtField(IKAnalyzer.IK_SMART)]\r\n        public string WithDefaultAnalyzer { get; " +
+                    "set; }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
     }

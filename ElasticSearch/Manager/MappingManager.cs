@@ -510,7 +510,7 @@ namespace ElasticSearch.Manager
                 case "System.Boolean":
                     return new BooleanFieldAttribute { Name = fieldName };
                 case "System.String":
-                    return new KeywordFieldAttribute { Name = fieldName };
+                    return new TextFieldAttribute { Name = fieldName };
                 default:
                     return null;
             }

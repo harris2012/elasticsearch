@@ -29,9 +29,9 @@ namespace Example
         public long AssumeLong { get; set; }
 
         /// <summary>
-        /// 推断 keyword
+        /// 推断 text
         /// </summary>
-        public string AssumeKeyword { get; set; }
+        public string AssumeText { get; set; }
 
         /// <summary>
         /// 使用 integer
