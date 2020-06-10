@@ -91,44 +91,63 @@ namespace ElasticSearch.Manager
                 return null;
             }
 
+            var returnSettingsDataObject = false;
             var settingsDataObject = new DataObject();
             if (indexAttribute.NumberOfShards > 0)
             {
+                returnSettingsDataObject = true;
                 settingsDataObject.AddDataValue("number_of_shards", indexAttribute.NumberOfShards);
             }
             if (indexAttribute.NumberOfReplicas > 0)
             {
+                returnSettingsDataObject = true;
                 settingsDataObject.AddDataValue("number_of_replicas", indexAttribute.NumberOfReplicas);
             }
             if (indexAttribute.MappingTotalFieldsLimit > 0)
             {
+                returnSettingsDataObject = true;
                 settingsDataObject.AddDataValue("mapping.total_fields.limit", indexAttribute.MappingTotalFieldsLimit);
             }
 
-            var analysisDataObject = settingsDataObject.AddDataObject("analysis");
+            var withAnalysisDataObject = false;
+            var analysisDataObject = new DataObject();
 
             if (customTokenizerAttributeList != null && customTokenizerAttributeList.Count > 0)
             {
+                withAnalysisDataObject = true;
                 var tokenizerDataObject = analysisDataObject.AddDataObject("tokenizer");
                 foreach (var customTokenizerAttribute in customTokenizerAttributeList)
                 {
-                    var cc = BuildTokenizerBody(customTokenizerAttribute);
-                    tokenizerDataObject.AddDataObject(customTokenizerAttribute.Name, cc);
+                    var tokenizerBody = BuildTokenizerBody(customTokenizerAttribute);
+                    tokenizerDataObject.AddDataObject(customTokenizerAttribute.Name, tokenizerBody);
                 }
             }
 
             if (customAnalyzerAttributeList != null && customAnalyzerAttributeList.Count > 0)
             {
+                withAnalysisDataObject = true;
                 var analyzerDataObject = analysisDataObject.AddDataObject("analyzer");
                 foreach (var customAnalyzerAttribute in customAnalyzerAttributeList)
                 {
-                    var cc = BuildAnalyzerProperties(customAnalyzerAttribute);
-                    analyzerDataObject.AddDataObject(customAnalyzerAttribute.Name, cc);
+                    var analyzerProperties = BuildAnalyzerProperties(customAnalyzerAttribute);
+                    analyzerDataObject.AddDataObject(customAnalyzerAttribute.Name, analyzerProperties);
                 }
             }
 
+            if (withAnalysisDataObject)
+            {
+                returnSettingsDataObject = true;
+                settingsDataObject.AddDataObject("analysis", analysisDataObject);
+            }
 
-            return settingsDataObject;
+            if (returnSettingsDataObject)
+            {
+                return settingsDataObject;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private static DataObject BuildTokenizerBody(CustomTokenizerAttribute customTokenizerAttribute)

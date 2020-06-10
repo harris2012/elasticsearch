@@ -65,7 +65,6 @@
     <Compile Include="Loader\Model\XmlMember.cs" />
     <Compile Include="Loader\Model\XmlMemberParam.cs" />
     <Compile Include="Manager\ManagerBase.cs" />
-    <Compile Include="Manager\MappingBuilder.cs" />
     <Compile Include="Manager\MappingManager.cs" />
     <Compile Include="Manager\SetupManager.cs" />
     <Compile Include="Manager\UpdateManager.cs" />
