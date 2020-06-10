@@ -265,10 +265,10 @@ namespace ElasticSearch.Manager
 
                 if (tokenFilters.Count > 0)
                 {
-                    var xx = dataObject.AddDataArray("filter");
+                    var dataArray = dataObject.AddDataArray("filter");
                     foreach (var item in tokenFilters)
                     {
-                        xx.AddDataValue(item);
+                        dataArray.AddDataValue(item);
                     }
                 }
             }
@@ -457,7 +457,6 @@ namespace ElasticSearch.Manager
 
         private static FieldAttribute GetFieldAttribute(PropertyInfo field, string fieldName)
         {
-
             //处理简单类型
             FieldAttribute fieldAttribute = field.GetCustomAttribute<FieldAttribute>(false);
             if (fieldAttribute != null)
