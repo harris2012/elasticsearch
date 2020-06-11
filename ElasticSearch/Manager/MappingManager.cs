@@ -446,11 +446,11 @@ namespace ElasticSearch.Manager
                     var mmm = dataObject.AddDataObject(analyzer);
                     mmm.AddDataValue("type", "text");
                     mmm.AddDataValue("analyzer", analyzer);
-
-
-                    //builder.AppendLine(",").KeyValue(analyzer, analyzer_items);
                 }
             }
+
+            //使生成出来的字段按照升序排列
+            dataObject.DataObjectMap = dataObject.DataObjectMap.OrderBy(v => v.Key).ToDictionary(v => v.Key, v => v.Value);
 
             return dataObject;
         }
