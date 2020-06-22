@@ -23,8 +23,8 @@ namespace Infrastructure
     }
 
     /// <summary>
-    /// NGram 元分词器
-    /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-ngram-tokenizer.html
+    /// EdgeNGram 前缀分词器
+    /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-edgengram-tokenizer.html
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public sealed class EdgeNGramTokenizerAttribute : AbstractNGramTokenizerAttribute
