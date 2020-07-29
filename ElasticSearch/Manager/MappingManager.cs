@@ -313,19 +313,49 @@ namespace ElasticSearch.Manager
             return dataObject;
         }
 
-        private static Dictionary<string, DataObject> BuildProperties(Type type)
+        private static SortedDictionary<string, DataObject> BuildProperties(Type type)
         {
-            var fieldAttributes = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Select(field => GetFieldAttribute(field, field.Name.ToLowerCaseUnderLine()))
-                .Where(fieldAttribute => fieldAttribute != null)
-                .OrderBy(v => v.Name)
-                .ToList();
+            SortedDictionary<string, DataObject> returnValue = new SortedDictionary<string, DataObject>();
 
-            Dictionary<string, DataObject> returnValue = new Dictionary<string, DataObject>();
-
-            foreach (var item in fieldAttributes)
+            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var property in properties)
             {
-                returnValue.Add(item.Name.ToLowerCaseUnderLine(), BuildProperty(item));
+                var field = GetFieldAttribute(property, property.Name.ToLowerCaseUnderLine());
+                if (field != null)
+                {
+                    returnValue.Add(field.Name.ToLowerCaseUnderLine(), BuildProperty(field));
+                    continue;
+                }
+
+                //如果不是 List<T>，则跳过
+                if (!property.PropertyType.IsGenericType)
+                {
+                    continue;
+                }
+
+                //如果不是 List<T>，则跳过
+                var genericType = property.PropertyType.GetGenericTypeDefinition();
+                if (genericType.FullName != "System.Collections.Generic.List`1")
+                {
+                    continue;
+                }
+
+                //解析List<T>里面的T
+                var nestProperties = BuildProperties(property.PropertyType.GenericTypeArguments[0]);
+                if (nestProperties == null || nestProperties.Count == 0)
+                {
+                    continue;
+                }
+
+                //嵌套类型
+                DataObject propertyDataObject = new DataObject();
+                returnValue.Add(property.Name.ToLowerCaseUnderLine(), propertyDataObject);
+
+                DataObject propertiesDataObject = propertyDataObject.AddDataObject("properties");
+                foreach (var item in nestProperties)
+                {
+                    propertiesDataObject.AddDataObject(item.Key, item.Value);
+                }
             }
 
             return returnValue;
