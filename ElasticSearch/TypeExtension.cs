@@ -56,15 +56,16 @@ namespace ElasticSearch
                     typeName = "Long";
                     break;
                 case "System.DateTime":
-                    {
-                        typeName = "java.util.Date";
-                    }
+                    typeName = "java.util.Date";
                     break;
                 case "System.Single":
                     typeName = "Float";
                     break;
                 case "System.Double":
                     typeName = "Double";
+                    break;
+                case "System.Decimal":
+                    typeName = "java.math.BigDecimal";
                     break;
 
                 default:

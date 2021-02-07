@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 namespace Infrastructure
 {
     /// <summary>
-    /// 布尔型
+    /// boolean
     /// </summary>
     public sealed class BooleanFieldAttribute : FieldAttribute
     {
+        /// <summary>
+        /// Boolean
+        /// </summary>
         public override FieldType FieldType => FieldType.Boolean;
 
+        /// <summary>
+        /// boolean
+        /// </summary>
         public override string Type => "boolean";
 
         /// <summary>
@@ -20,10 +26,17 @@ namespace Infrastructure
         /// </summary>
         public bool? NullValue { get; private set; }
 
+        /// <summary>
+        /// boolean
+        /// </summary>
         public BooleanFieldAttribute()
         {
         }
 
+        /// <summary>
+        /// boolean
+        /// </summary>
+        /// <param name="nullValue"></param>
         public BooleanFieldAttribute(bool nullValue)
         {
             this.NullValue = nullValue;
