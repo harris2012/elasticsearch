@@ -5,6 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="ElasticSearch.Loader.Model" #>
 <#@ import namespace="Infrastructure" #>
+<#@ import namespace="Savory" #>
 package <#=this.JavaRoot#>;
 
 /*
