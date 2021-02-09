@@ -40,15 +40,24 @@ namespace Infrastructure
         public BuiltInCharacterFilters BuiltInCharacterFilters { get; set; }
 
         /// <summary>
+        /// 自定义字符过滤器
+        /// </summary>
+        public string[] CustomCharacterFilters { get; set; }
+
+        /// <summary>
         /// 内置token过滤器
         /// </summary>
         public BuiltInTokenFilters BuiltInTokenFilters { get; set; }
+
+        /// <summary>
+        /// 自定义token过滤器
+        /// </summary>
+        public string[] CustomTokenFilters { get; set; }
 
         /// <summary>
         /// PositionIncrementGap
         /// https://www.elastic.co/guide/en/elasticsearch/reference/6.8/position-increment-gap.html
         /// </summary>
         public int position_increment_gap { get; set; }
-
     }
 }

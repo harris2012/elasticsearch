@@ -252,6 +252,7 @@ namespace ElasticSearch.Manager
         {
             DataObject dataObject = new DataObject();
 
+            dataObject.AddDataValue("type", "custom");
             dataObject.AddDataValue("tokenizer", customAnalyzerAttribute.Tokenizer);
 
             {
@@ -263,6 +264,11 @@ namespace ElasticSearch.Manager
                     .Where(v => !"none".Equals(v))
                     .ToList();
                 tokenFilters.AddRange(builtInTokenFilters);
+
+                if (customAnalyzerAttribute.CustomTokenFilters != null && customAnalyzerAttribute.CustomTokenFilters.Length > 0)
+                {
+                    tokenFilters.AddRange(customAnalyzerAttribute.CustomTokenFilters);
+                }
 
                 if (tokenFilters.Count > 0)
                 {
