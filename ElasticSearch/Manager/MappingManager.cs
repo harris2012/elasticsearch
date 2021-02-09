@@ -54,6 +54,7 @@ namespace ElasticSearch.Manager
             var indexAttribute = type.GetCustomAttribute<IndexAttribute>(false);
 
             var customAnalyzerAttributeList = type.GetCustomAttributes<CustomAnalyzerAttribute>(false).ToList();
+            var customFilterAttributeList = type.GetCustomAttributes<CustomFilterAttribute>(false).ToList();
             var customTokenizerAttributeList = type.GetCustomAttributes<CustomTokenizerAttribute>(false).ToList();
 
             var dataObject = new DataObject();
@@ -69,7 +70,7 @@ namespace ElasticSearch.Manager
             }
 
             //settings
-            var settingsDataObject = BuildSettings(indexAttribute, customTokenizerAttributeList, customAnalyzerAttributeList);
+            var settingsDataObject = BuildSettings(indexAttribute, customTokenizerAttributeList, customFilterAttributeList, customAnalyzerAttributeList);
             if (settingsDataObject != null)
             {
                 dataObject.AddDataObject("settings", settingsDataObject);
@@ -85,9 +86,16 @@ namespace ElasticSearch.Manager
             return dataObject;
         }
 
-        private static DataObject BuildSettings(IndexAttribute indexAttribute, List<CustomTokenizerAttribute> customTokenizerAttributeList, List<CustomAnalyzerAttribute> customAnalyzerAttributeList)
+        private static DataObject BuildSettings(IndexAttribute indexAttribute,
+            List<CustomTokenizerAttribute> customTokenizerAttributeList,
+            List<CustomFilterAttribute> customFilterAttributeList,
+            List<CustomAnalyzerAttribute> customAnalyzerAttributeList)
         {
-            if (indexAttribute.NumberOfReplicas == 0 && indexAttribute.NumberOfShards > 0 && (customAnalyzerAttributeList == null || customAnalyzerAttributeList.Count == 0) && (customTokenizerAttributeList == null || customTokenizerAttributeList.Count == 0))
+            if (indexAttribute.NumberOfReplicas == 0
+                && indexAttribute.NumberOfShards == 0
+                && (customAnalyzerAttributeList == null || customAnalyzerAttributeList.Count == 0)
+                && (customFilterAttributeList == null || customFilterAttributeList.Count == 0)
+                && (customTokenizerAttributeList == null || customTokenizerAttributeList.Count == 0))
             {
                 return null;
             }
@@ -121,6 +129,17 @@ namespace ElasticSearch.Manager
                 {
                     var tokenizerBody = BuildTokenizerBody(customTokenizerAttribute);
                     tokenizerDataObject.AddDataObject(customTokenizerAttribute.Name, tokenizerBody);
+                }
+            }
+
+            if (customFilterAttributeList != null && customFilterAttributeList.Count > 0)
+            {
+                withAnalysisDataObject = true;
+                var analyzerDataObject = analysisDataObject.AddDataObject("filter");
+                foreach (var customFilterAttribute in customFilterAttributeList)
+                {
+                    var filterProperties = BuildFilterProperties(customFilterAttribute);
+                    analyzerDataObject.AddDataObject(customFilterAttribute.Name, filterProperties);
                 }
             }
 
@@ -243,6 +262,23 @@ namespace ElasticSearch.Manager
             foreach (var item in tokenizeOChars)
             {
                 array.AddDataValue(item);
+            }
+
+            return dataObject;
+        }
+
+        private static DataObject BuildFilterProperties(CustomFilterAttribute customFilterAttribute)
+        {
+            DataObject dataObject = new DataObject();
+
+            dataObject.AddDataValue("type", customFilterAttribute.Type);
+
+            if (customFilterAttribute.Properties != null && customFilterAttribute.Properties.Length > 0 && customFilterAttribute.Properties.Length % 2 == 0)
+            {
+                for (int i = 0; i < customFilterAttribute.Properties.Length; i += 2)
+                {
+                    dataObject.AddDataValue(customFilterAttribute.Properties[i], customFilterAttribute.Properties[i + 1]);
+                }
             }
 
             return dataObject;
