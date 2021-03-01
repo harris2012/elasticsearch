@@ -36,8 +36,17 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Savory.Text.Extension, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Savory.Text.Extension.1.6.0\lib\net452\Savory.Text.Extension.dll</HintPath>
+    <Reference Include="Savory.CodeDom, Version=1.13.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Savory.CodeDom.1.13.2\lib\net452\Savory.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="Savory.CodeDom.Js, Version=1.12.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Savory.CodeDom.Js.1.12.6\lib\net452\Savory.CodeDom.Js.dll</HintPath>
+    </Reference>
+    <Reference Include="Savory.CodeDom.Js.Engine, Version=1.12.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Savory.CodeDom.Js.Engine.1.12.6\lib\net452\Savory.CodeDom.Js.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Savory.Text.Extension, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Savory.Text.Extension.1.7.0\lib\net452\Savory.Text.Extension.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -71,18 +80,6 @@
     <Compile Include="Manager\MappingManager.cs" />
     <Compile Include="Manager\SetupManager.cs" />
     <Compile Include="Manager\UpdateManager.cs" />
-    <Compile Include="CodeEngine\CodeWriter.cs" />
-    <Compile Include="CodeEngine\DataArray.cs" />
-    <Compile Include="CodeEngine\DataArrayExtension.cs" />
-    <Compile Include="CodeEngine\DataObject.cs" />
-    <Compile Include="CodeEngine\DataObjectExtension.cs" />
-    <Compile Include="CodeEngine\DataValue.cs" />
-    <Compile Include="CodeEngine\DataValueExtension.cs" />
-    <Compile Include="CodeEngine\DataValueOrObject.cs" />
-    <Compile Include="CodeEngine\GenerateOptions.cs" />
-    <Compile Include="CodeEngine\JsCodeEngine.cs" />
-    <Compile Include="CodeEngine\JsCodeEngine_DataObject.cs" />
-    <Compile Include="CodeEngine\Marks.cs" />
     <Compile Include="Param.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

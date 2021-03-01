@@ -16,6 +16,8 @@ namespace ElasticSearch
     {
         static void Main(string[] args)
         {
+            args = new string[] { "update" };
+
             if (args == null || args.Length == 0)
             {
                 ShowMenu();
