@@ -519,11 +519,20 @@ namespace ElasticSearch.Manager
                 List<string> analyzers = new List<string>();
 
                 //内置分词器
-                var builtInAnalyzers = textFieldAttribute.BuiltInAnalyzer.ToString().ToLower().Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries).OrderBy(x => x).ToList();
+                var builtInAnalyzers = textFieldAttribute.BuiltInAnalyzer
+                    .ToString()
+                    .ToLower()
+                    .Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries)
+                    .OrderBy(x => x)
+                    .ToList();
                 analyzers.AddRange(builtInAnalyzers);
 
                 //ik分词器
-                var ikAnalyzers = textFieldAttribute.IKAnalyzer.ToString().ToLower().Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries).OrderBy(x => x).ToList();
+                var ikAnalyzers = textFieldAttribute.IKAnalyzer
+                    .ToString()
+                    .ToLower()
+                    .Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries)
+                    .OrderBy(x => x).ToList();
                 analyzers.AddRange(ikAnalyzers);
 
                 //自定义分词器
@@ -539,9 +548,9 @@ namespace ElasticSearch.Manager
                         continue;
                     }
 
-                    var mmm = dataObject.AddDataObject(analyzer);
-                    mmm.AddDataValue(DataKey.DoubleQuotationString("type"), "text");
-                    mmm.AddDataValue(DataKey.DoubleQuotationString("analyzer"), analyzer);
+                    var mmm = dataObject.AddDataObject(DataKey.DoubleQuotationString(analyzer));
+                    mmm.AddDataValue(DataKey.DoubleQuotationString("type"), DataValue.DoubleQuotationString("text"));
+                    mmm.AddDataValue(DataKey.DoubleQuotationString("analyzer"), DataValue.DoubleQuotationString(analyzer));
                 }
             }
 
