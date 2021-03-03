@@ -89,11 +89,6 @@ namespace ElasticSearch.Template.Java
         {
             foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
             {
-                if(propertyNode.FieldAttribute != null && !propertyNode.FieldAttribute.Index)
-                {
-                    continue;
-                }
-
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
 
@@ -102,14 +97,14 @@ namespace ElasticSearch.Template.Java
             #line hidden
             this.Write("\r\n    /**\r\n     * ");
             
-            #line 45 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 40 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
             
             #line default
             #line hidden
             this.Write("\r\n     */\r\n");
             
-            #line 47 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 42 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
 
                 }
 
@@ -118,21 +113,21 @@ namespace ElasticSearch.Template.Java
             #line hidden
             this.Write("    public final static String ");
             
-            #line 50 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 45 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToUpperCaseUnderLine()));
             
             #line default
             #line hidden
             this.Write(" = \"");
             
-            #line 50 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 45 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCaseUnderLine()));
             
             #line default
             #line hidden
             this.Write("\";\r\n");
             
-            #line 51 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 46 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
 
                 if(propertyNode.FieldAttribute == null)
                 {
@@ -150,14 +145,14 @@ namespace ElasticSearch.Template.Java
             #line hidden
             this.Write("\r\n    /**\r\n     * ");
             
-            #line 65 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 60 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
             
             #line default
             #line hidden
             this.Write("(使用`keyword`，不分词)\r\n     */\r\n");
             
-            #line 67 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 62 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
 
                     }
 
@@ -166,21 +161,21 @@ namespace ElasticSearch.Template.Java
             #line hidden
             this.Write("    public final static String ");
             
-            #line 70 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 65 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture($"{propertyNode.Name.ToUpperCaseUnderLine()}_KEYWORD"));
             
             #line default
             #line hidden
             this.Write(" = \"");
             
-            #line 70 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 65 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCaseUnderLine()));
             
             #line default
             #line hidden
             this.Write(".keyword\";\r\n");
             
-            #line 71 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 66 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
 
                     //分词器
                     List<string> analyzers = new List<string>();
@@ -214,21 +209,21 @@ namespace ElasticSearch.Template.Java
             #line hidden
             this.Write("\r\n    /**\r\n     * ");
             
-            #line 101 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 96 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
             
             #line default
             #line hidden
             this.Write("(使用`");
             
-            #line 101 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 96 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(analyzer));
             
             #line default
             #line hidden
             this.Write("`分词器)\r\n     */\r\n");
             
-            #line 103 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 98 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
 
                         }
 
@@ -237,21 +232,21 @@ namespace ElasticSearch.Template.Java
             #line hidden
             this.Write("    public final static String ");
             
-            #line 106 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 101 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture($"{propertyNode.Name.ToUpperCaseUnderLine()}_{analyzer.ToUpperCaseUnderLine()}"));
             
             #line default
             #line hidden
             this.Write(" = \"");
             
-            #line 106 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 101 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture($"{propertyNode.Name.ToLowerCaseUnderLine()}.{analyzer}"));
             
             #line default
             #line hidden
             this.Write("\";\r\n");
             
-            #line 107 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
+            #line 102 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsFieldsTemplate.tt"
 
                     }
                 }

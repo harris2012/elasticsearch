@@ -32,11 +32,6 @@ public final class <#=this.ClassNode.Name#>Fields {
         {
             foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
             {
-                if(propertyNode.FieldAttribute != null && !propertyNode.FieldAttribute.Index)
-                {
-                    continue;
-                }
-
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
 #>
