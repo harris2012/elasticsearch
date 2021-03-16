@@ -87,7 +87,7 @@ namespace ElasticSearch.Template.Java
 
         if (this.ClassNode.PropertyNodeList != null && this.ClassNode.PropertyNodeList.Count > 0)
         {
-            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList.OrderBy(v=>v.Name))
             {
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {

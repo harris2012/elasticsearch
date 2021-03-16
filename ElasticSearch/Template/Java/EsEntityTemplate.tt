@@ -43,7 +43,7 @@ public class <#=this.ClassNode.Name#> {
 <#
         if (this.ClassNode.PropertyNodeList != null && this.ClassNode.PropertyNodeList.Count > 0)
         {
-            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList.OrderBy(v=>v.Name))
             {
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
@@ -59,7 +59,7 @@ public class <#=this.ClassNode.Name#> {
     private <#=propertyNode.PropertyType.ToJavaType(this.RootNamespace)#> <#=propertyNode.Name.ToLowerCamelCase()#>;
 <#
             }
-            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList.OrderBy(v=>v.Name))
             {
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {

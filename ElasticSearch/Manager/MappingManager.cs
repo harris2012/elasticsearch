@@ -129,7 +129,7 @@ namespace ElasticSearch.Manager
                 foreach (var customTokenizerAttribute in customTokenizerAttributeList)
                 {
                     var tokenizerBody = BuildTokenizerBody(customTokenizerAttribute);
-                    tokenizerDataObject.AddDataObject(customTokenizerAttribute.Name, tokenizerBody);
+                    tokenizerDataObject.AddDataObject(DataKey.DoubleQuotationString(customTokenizerAttribute.Name), tokenizerBody);
                 }
             }
 
@@ -194,7 +194,7 @@ namespace ElasticSearch.Manager
         private static DataObject BuildNGramTokenizer(AbstractNGramTokenizerAttribute abstractNGramTokenizerAttribute)
         {
             DataObject dataObject = new DataObject();
-            dataObject.AddDataValue(DataKey.DoubleQuotationString("type"), abstractNGramTokenizerAttribute.Type);
+            dataObject.AddDataValue(DataKey.DoubleQuotationString("type"), DataValue.DoubleQuotationString(abstractNGramTokenizerAttribute.Type));
 
             if (abstractNGramTokenizerAttribute.MinGram > 0)
             {
@@ -217,7 +217,7 @@ namespace ElasticSearch.Manager
                 var tokenCharsArray = dataObject.AddDataArray(DataKey.DoubleQuotationString("token_chars"));
                 foreach (var item in tokenChars)
                 {
-                    tokenCharsArray.AddDataValue(item);
+                    tokenCharsArray.AddDataValue(DataValue.DoubleQuotationString(item));
                 }
             }
 
@@ -227,11 +227,11 @@ namespace ElasticSearch.Manager
         private static DataObject BuildPatternTokenier(PatternTokenizerAttribute patternTokenizerAttribute)
         {
             DataObject dataObject = new DataObject();
-            dataObject.AddDataValue(DataKey.DoubleQuotationString("type"), patternTokenizerAttribute.Type);
+            dataObject.AddDataValue(DataKey.DoubleQuotationString("type"), DataValue.DoubleQuotationString(patternTokenizerAttribute.Type));
 
             if (!string.IsNullOrEmpty(patternTokenizerAttribute.Pattern))
             {
-                dataObject.AddDataValue(DataKey.DoubleQuotationString("pattern"), patternTokenizerAttribute.Pattern);
+                dataObject.AddDataValue(DataKey.DoubleQuotationString("pattern"), DataValue.DoubleQuotationString(patternTokenizerAttribute.Pattern));
             }
 
             return dataObject;
@@ -240,7 +240,7 @@ namespace ElasticSearch.Manager
         private static DataObject BuildCharGroupTokenizer(CharGroupTokenizerAttribute charGroupTokenizerAttribute)
         {
             DataObject dataObject = new DataObject();
-            dataObject.AddDataValue(DataKey.DoubleQuotationString("type"), charGroupTokenizerAttribute.Type);
+            dataObject.AddDataValue(DataKey.DoubleQuotationString("type"), DataValue.DoubleQuotationString(charGroupTokenizerAttribute.Type));
 
             List<string> tokenizeOChars = new List<string>();
 
@@ -262,7 +262,7 @@ namespace ElasticSearch.Manager
             var array = dataObject.AddDataArray(DataKey.DoubleQuotationString("tokenize_on_chars"));
             foreach (var item in tokenizeOChars)
             {
-                array.AddDataValue(item);
+                array.AddDataValue(DataValue.DoubleQuotationString(item));
             }
 
             return dataObject;

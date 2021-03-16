@@ -129,7 +129,7 @@ import com.google.gson.annotations.SerializedName;
 
         if (this.ClassNode.PropertyNodeList != null && this.ClassNode.PropertyNodeList.Count > 0)
         {
-            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList.OrderBy(v=>v.Name))
             {
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
@@ -179,7 +179,7 @@ import com.google.gson.annotations.SerializedName;
             #line 60 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
             }
-            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList.OrderBy(v=>v.Name))
             {
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
