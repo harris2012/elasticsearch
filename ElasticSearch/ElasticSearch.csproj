@@ -46,6 +46,12 @@
     <Reference Include="Panosen.CodeDom.CSharp.Engine, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panosen.CodeDom.CSharp.Engine.1.0.4\lib\net472\Panosen.CodeDom.CSharp.Engine.dll</HintPath>
     </Reference>
+    <Reference Include="Panosen.CodeDom.JavaScript, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panosen.CodeDom.JavaScript.1.0.0\lib\net472\Panosen.CodeDom.JavaScript.dll</HintPath>
+    </Reference>
+    <Reference Include="Panosen.CodeDom.JavaScript.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panosen.CodeDom.JavaScript.Engine.1.0.0\lib\net472\Panosen.CodeDom.JavaScript.Engine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -76,21 +82,11 @@
     <Compile Include="Loader\Model\XmlMemberParam.cs" />
     <Compile Include="Manager\ManagerBase.cs" />
     <Compile Include="Manager\MappingManager.cs" />
+    <Compile Include="Manager\MappingManager_Mappings.cs" />
+    <Compile Include="Manager\MappingManager_Settings.cs" />
     <Compile Include="Manager\SetupManager.cs" />
     <Compile Include="Manager\UpdateManager.cs" />
     <Compile Include="NameExtension.cs" />
-    <Compile Include="CodeEngine\CodeWriter.cs" />
-    <Compile Include="CodeEngine\DataArray.cs" />
-    <Compile Include="CodeEngine\DataArrayExtension.cs" />
-    <Compile Include="CodeEngine\DataObject.cs" />
-    <Compile Include="CodeEngine\DataObjectExtension.cs" />
-    <Compile Include="CodeEngine\DataValue.cs" />
-    <Compile Include="CodeEngine\DataValueExtension.cs" />
-    <Compile Include="CodeEngine\DataValueOrObject.cs" />
-    <Compile Include="CodeEngine\GenerateOptions.cs" />
-    <Compile Include="CodeEngine\JsCodeEngine.cs" />
-    <Compile Include="CodeEngine\JsCodeEngine_DataObject.cs" />
-    <Compile Include="CodeEngine\Marks.cs" />
     <Compile Include="Param.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
