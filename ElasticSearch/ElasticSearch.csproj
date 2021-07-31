@@ -37,6 +37,15 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Panosen.CodeDom, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panosen.CodeDom.1.5.1\lib\net472\Panosen.CodeDom.dll</HintPath>
+    </Reference>
+    <Reference Include="Panosen.CodeDom.CSharp, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panosen.CodeDom.CSharp.1.0.4\lib\net472\Panosen.CodeDom.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Panosen.CodeDom.CSharp.Engine, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panosen.CodeDom.CSharp.Engine.1.0.4\lib\net472\Panosen.CodeDom.CSharp.Engine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
