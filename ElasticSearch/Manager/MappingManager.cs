@@ -1,8 +1,7 @@
 ﻿using Infrastructure;
-using Savory;
-using Savory.CodeDom;
-using Savory.CodeDom.Js;
-using Savory.CodeDom.Js.Engine;
+using Panosen.CodeDom;
+using Panosen.CodeDom.CSharp.Engine;
+using Panosen.CodeDom.JavaScript.Engine;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,9 +40,10 @@ namespace ElasticSearch.Manager
                 var dataObject = BuildMappingsFile(type);
 
                 var stringBuilder = new StringBuilder();
-                jsCodeEngine.GenerateDataObject(dataObject, new StringWriter(stringBuilder), new GenerateOptions
+                jsCodeEngine.GenerateDataObject(dataObject, new StringWriter(stringBuilder), new Panosen.CodeDom.JavaScript.Engine.GenerateOptions
                 {
-                    TabString = "  "
+                    TabString = "  ",
+                    DataArrayItemBreakLine = true
                 });
 
                 WriteToFile(Path.Combine(mappingsFolder, $"{type.Name.ToLowerCaseBreakLine()}.json"), stringBuilder.ToString());
@@ -532,7 +532,8 @@ namespace ElasticSearch.Manager
                     .ToString()
                     .ToLower()
                     .Split(CommaAndWhitespace, StringSplitOptions.RemoveEmptyEntries)
-                    .OrderBy(x => x).ToList();
+                    .OrderBy(x => x)
+                    .ToList();
                 analyzers.AddRange(ikAnalyzers);
 
                 //自定义分词器

@@ -64,9 +64,6 @@ namespace ElasticSearch
                 case "System.Double":
                     typeName = "Double";
                     break;
-                case "System.Decimal":
-                    typeName = "java.math.BigDecimal";
-                    break;
 
                 default:
                     if (typeName.StartsWith(rootNamespace))

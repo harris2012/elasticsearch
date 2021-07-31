@@ -47,8 +47,8 @@ namespace ElasticSearch {
         }
         
         /// <summary>
-        ///   重写当前线程的 CurrentUICulture 属性
-        ///   重写当前线程的 CurrentUICulture 属性。
+        ///   重写当前线程的 CurrentUICulture 属性，对
+        ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
@@ -116,14 +116,15 @@ namespace ElasticSearch {
         ///        &lt;member name=&quot;T:Infrastructure.BuiltInAnalyzer&quot;&gt;
         ///            &lt;summary&gt;
         ///            内置分词器
-        ///            &lt;see cref=&quot;!:https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-analyzers.html&quot;/&gt;
+        ///            https://www.elastic.co/guide/en/elasticsearch/reference/6.8/analysis-analyzers.html
         ///            &lt;/summary&gt;
         ///        &lt;/member&gt;
         ///        &lt;member name=&quot;F:Infrastructure.BuiltInAnalyzer.NONE&quot;&gt;
         ///            &lt;summary&gt;
         ///            未设置
         ///            &lt;/summary&gt;
-        ///        &lt;/memb [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///        &lt;/member&gt;
+        ///        &lt;me [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string Infrastructure_xml {
             get {
@@ -151,11 +152,11 @@ namespace ElasticSearch {
         ///popd
         ///
         ///rmdir /S /Q Java
+        ///rmdir /S /Q Mappings
         ///
         ///elasticsearch update
         ///
         ///pause
-        ///
         /// 的本地化字符串。
         /// </summary>
         internal static string Update {

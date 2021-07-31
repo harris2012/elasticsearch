@@ -13,7 +13,6 @@ namespace ElasticSearch.Template.Java
     using System.Text;
     using System.Collections.Generic;
     using ElasticSearch.Loader.Model;
-    using Savory;
     using System;
     
     /// <summary>
@@ -32,7 +31,7 @@ namespace ElasticSearch.Template.Java
         {
             this.Write("package ");
             
-            #line 8 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 7 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.JavaRoot));
             
             #line default
@@ -51,7 +50,7 @@ import com.google.gson.annotations.SerializedName;
 
 ");
             
-            #line 20 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 19 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
     if(this.ClassNode.Imports != null && this.ClassNode.Imports.Count > 0)
     {
@@ -63,14 +62,14 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("import ");
             
-            #line 26 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 25 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(import));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 27 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 26 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
         }
 
@@ -78,13 +77,13 @@ import com.google.gson.annotations.SerializedName;
             #line default
             #line hidden
             
-            #line 29 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 28 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Environment.NewLine));
             
             #line default
             #line hidden
             
-            #line 29 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 28 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
     }
 
@@ -92,7 +91,7 @@ import com.google.gson.annotations.SerializedName;
             #line default
             #line hidden
             
-            #line 32 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 31 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
         if(!string.IsNullOrEmpty(this.ClassNode.Summary))
         {
@@ -102,14 +101,14 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("/**\r\n * ");
             
-            #line 37 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 36 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ClassNode.Summary));
             
             #line default
             #line hidden
             this.Write("\r\n */\r\n");
             
-            #line 39 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 38 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
         }
 
@@ -118,18 +117,18 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("public class ");
             
-            #line 42 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 41 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(this.ClassNode.Name));
             
             #line default
             #line hidden
             this.Write(" {\r\n");
             
-            #line 43 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 42 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
         if (this.ClassNode.PropertyNodeList != null && this.ClassNode.PropertyNodeList.Count > 0)
         {
-            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList.OrderBy(v=>v.Name))
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
             {
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
@@ -139,14 +138,14 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("\r\n    /**\r\n     * ");
             
-            #line 53 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 52 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
             
             #line default
             #line hidden
             this.Write("\r\n     */\r\n");
             
-            #line 55 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 54 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
                 }
 
@@ -155,31 +154,31 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("    @SerializedName(\"");
             
-            #line 58 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 57 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCaseUnderLine()));
             
             #line default
             #line hidden
             this.Write("\")\r\n    private ");
             
-            #line 59 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 58 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.PropertyType.ToJavaType(this.RootNamespace)));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 59 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 58 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCamelCase()));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 60 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 59 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
             }
-            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList.OrderBy(v=>v.Name))
+            foreach (PropertyNode propertyNode in this.ClassNode.PropertyNodeList)
             {
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
                 {
@@ -189,14 +188,14 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("\r\n    /**\r\n     * Get ");
             
-            #line 69 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 68 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
             
             #line default
             #line hidden
             this.Write("\r\n     */\r\n");
             
-            #line 71 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 70 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
                 }
 
@@ -205,28 +204,28 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("    public ");
             
-            #line 74 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 73 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.PropertyType.ToJavaType(this.RootNamespace)));
             
             #line default
             #line hidden
             this.Write(" get");
             
-            #line 74 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 73 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name));
             
             #line default
             #line hidden
             this.Write("() {\r\n        return ");
             
-            #line 75 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 74 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCamelCase()));
             
             #line default
             #line hidden
             this.Write(";\r\n    }\r\n");
             
-            #line 77 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 76 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
 
                 if(!string.IsNullOrEmpty(propertyNode.Summary))
@@ -237,14 +236,14 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("\r\n    /**\r\n     * Set ");
             
-            #line 84 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 83 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Summary));
             
             #line default
             #line hidden
             this.Write("\r\n     */\r\n");
             
-            #line 86 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 85 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
                 }
 
@@ -253,42 +252,42 @@ import com.google.gson.annotations.SerializedName;
             #line hidden
             this.Write("    public void set");
             
-            #line 89 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 88 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 89 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 88 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.PropertyType.ToJavaType(this.RootNamespace)));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 89 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 88 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCamelCase()));
             
             #line default
             #line hidden
             this.Write(") {\r\n        this.");
             
-            #line 90 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 89 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCamelCase()));
             
             #line default
             #line hidden
             this.Write(" = ");
             
-            #line 90 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 89 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(propertyNode.Name.ToLowerCamelCase()));
             
             #line default
             #line hidden
             this.Write(";\r\n    }\r\n");
             
-            #line 92 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
+            #line 91 "D:\TheGitlabWorkspace\harris-app\elasticsearch\ElasticSearch\Template\Java\EsEntityTemplate.tt"
 
 
             }
