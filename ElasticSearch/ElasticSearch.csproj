@@ -52,6 +52,9 @@
     <Reference Include="Panosen.CodeDom.JavaScript.Engine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Panosen.CodeDom.JavaScript.Engine.1.0.0\lib\net472\Panosen.CodeDom.JavaScript.Engine.dll</HintPath>
     </Reference>
+    <Reference Include="Panosen.Text.Extension, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Panosen.Text.Extension.1.0.0\lib\net472\Panosen.Text.Extension.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />

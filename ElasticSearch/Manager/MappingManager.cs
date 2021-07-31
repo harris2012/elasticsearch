@@ -486,12 +486,12 @@ namespace ElasticSearch.Manager
 
                         if (!string.IsNullOrEmpty(textFieldAttribute.DefaultAnalyzer))
                         {
-                            dataObject.AddDataValue(DataKey.DoubleQuotationString("analyzer"), textFieldAttribute.DefaultAnalyzer);
+                            dataObject.AddDataValue(DataKey.DoubleQuotationString("analyzer"), DataValue.DoubleQuotationString(textFieldAttribute.DefaultAnalyzer));
                         }
 
                         if (textFieldAttribute.NullValue != null)
                         {
-                            dataObject.AddDataValue(DataKey.DoubleQuotationString("null_value"), textFieldAttribute.NullValue);
+                            dataObject.AddDataValue(DataKey.DoubleQuotationString("null_value"), DataValue.DoubleQuotationString(textFieldAttribute.NullValue));
                         }
 
                         dataObject.AddSortedDataObject(DataKey.DoubleQuotationString("fields"), BuildTextFields(textFieldAttribute, textFieldAttribute.KeywordIgnoreAbove));
