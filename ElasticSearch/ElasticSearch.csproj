@@ -13,7 +13,7 @@
     <PackageReference Include="Panosen.CodeDom.CSharp.Engine" Version="1.1.0" />
     <PackageReference Include="Panosen.CodeDom.CSharpProject.Engine" Version="1.0.7" />
     <PackageReference Include="Panosen.CodeDom.Pom.Engine" Version="1.0.1" />
-    <PackageReference Include="Panosen.ElasticSearch.Java.Engine" Version="0.1.0" />
+    <PackageReference Include="Panosen.ElasticSearch.Java.Engine" Version="0.2.2" />
     <PackageReference Include="Panosen.ElasticSearch.Mapping.Engine" Version="0.1.0" />
     <PackageReference Include="Panosen.Generation" Version="1.0.3" />
     <PackageReference Include="Panosen.Language.CSharp" Version="1.0.0" />
